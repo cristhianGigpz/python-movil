@@ -1,7 +1,9 @@
 class Personaje:
-    def __init__(self, nombre, nivel_fuerza):
+    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen):
         self.nombre = nombre
         self.__nivel_fuerza = nivel_fuerza
+        self.talla = talla
+        self.planeta_origen = planeta_origen
 
     def saludar(self):
         return f"Hola, soy {self.nombre}"
