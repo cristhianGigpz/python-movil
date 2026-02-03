@@ -1,6 +1,7 @@
 from personajes import Personaje
 from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol
 from torneo import Torneo
+from exceptions import ListadoNoEsListaException, ListadoVacioException
 
 goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False)
 vegeta = Saiyajin("Vegeta", 8500, 1.65, "Planeta Vegeta", cola=True)
@@ -25,12 +26,15 @@ torneo_dragon_ball = Torneo("======Bienvenido al Torneo Dragon Ball 1======")
 torneo_dragon_ball.participantes = [goku, vegeta, krilin, bulma, picollo, yancha, tenshinhan, chaozu, yajirobe]
 
 print(torneo_dragon_ball.titulo)
-print("Participantes con nivel de fuerza > 1000:")
+print("Solo participantes con nivel de fuerza > 1000:")
 lista_filtrada = torneo_dragon_ball.listar_participantes()
 for participante in lista_filtrada:
     print(participante.nombre)
 print("\nSorteo de participantes y combates:")
-torneo_dragon_ball.sortear_participantes(lista_filtrada)
+try:
+    torneo_dragon_ball.sortear_participantes(lista_filtrada)
+except (ListadoNoEsListaException, ListadoVacioException) as e:
+    print(f"Error: {e}")
 
 # litas_guerreros: list[SaiyajinProtocol] = [goku, vegeta, krilin, bulma]
 # for guerrero in litas_guerreros:

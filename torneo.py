@@ -1,4 +1,5 @@
 import random
+from exceptions import ListadoNoEsListaException, ListadoVacioException
 
 class Torneo:
     def __init__(self, titulo):
@@ -10,6 +11,11 @@ class Torneo:
     
 
     def sortear_participantes(self, lista_filtrada):
+        if not isinstance(lista_filtrada, list):
+            raise ListadoNoEsListaException("El argumento proporcionado no es una lista.")
+        if not lista_filtrada:
+            raise ListadoVacioException("La lista proporcionada está vacía.")
+        
         random.shuffle(lista_filtrada)
         for index, participante in enumerate(lista_filtrada, start=1):
             print(f"{index}. {participante.nombre}")
