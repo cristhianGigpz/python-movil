@@ -1,5 +1,5 @@
 from personajes import Personaje
-from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol
+from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol, GuerreroInterface
 from torneo import Torneo
 from exceptions import ListadoNoEsListaException, ListadoVacioException
 
@@ -21,6 +21,10 @@ bulma = Personaje("Bulma", 500, 1.60, "Tierra")
 
 #print(krilin.saludar())
 #print(krilin.atacar())
+
+krilin.aumentar_fuerza()
+#krilin.elevar_ki()
+
 
 torneo_dragon_ball = Torneo("======Bienvenido al Torneo Dragon Ball 1======")
 torneo_dragon_ball.participantes = [goku, vegeta, krilin, bulma, picollo, yancha, tenshinhan, chaozu, yajirobe]

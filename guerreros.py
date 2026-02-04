@@ -1,5 +1,23 @@
+from abc import ABC, abstractmethod
 from typing import Protocol
 from personajes import Personaje
+
+class GuerreroInterface(ABC):
+    @abstractmethod
+    def atacar(self) -> str:
+        pass
+
+    @abstractmethod
+    def saludar(self) -> str:
+        pass
+
+    @abstractmethod
+    def elevar_ki(self) -> str:
+        pass
+
+    def aumentar_fuerza(self):
+        print("Aumentando la fueraza del guerrero!")
+        self.elevar_ki()
 
 class GuerreroProtocol(Protocol):
     def atacar(self) -> str:
@@ -29,7 +47,7 @@ class Saiyajin(Personaje):
     def atacar(self):
         return f"{self.nombre} (saiyajin) está atacando con fuerza {self.get_nivel_fuerza()}!"
 
-class Guerrero(Personaje):
+class Guerrero(Personaje, GuerreroInterface):
     def __init__(self, nombre, nivel_fuerza, talla, planeta_origen):
         super().__init__(nombre, nivel_fuerza, talla, planeta_origen)
     
@@ -38,3 +56,6 @@ class Guerrero(Personaje):
 
     def atacar(self):
         return f"{self.nombre} está atacando con fuerza {self.get_nivel_fuerza()}!"
+    
+    def elevar_ki(self):
+        print(f"{self.nombre} ha elevado su ki!")
