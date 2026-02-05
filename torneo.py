@@ -7,7 +7,7 @@ class Torneo:
         self.participantes = []
     
     def listar_participantes(self):
-        return [p for p in self.participantes if p.get_nivel_fuerza() > 1000]
+        return [p for p in self.participantes if p.nivel_fuerza > 1000]
     
 
     def sortear_participantes(self, lista_filtrada):

@@ -37,15 +37,15 @@ class Saiyajin(Personaje):
         self.cola = cola
 
     def transformarse_en_super_saiyajin(self):
-        nuevo_nivel = self.get_nivel_fuerza() * 100
-        self.set_nivel_fuerza(nuevo_nivel)
-        return f"{self.nombre} se ha transformado en Super Saiyajin! Nivel de fuerza: {self.get_nivel_fuerza()}"
+        nuevo_nivel = self.nivel_fuerza * 100
+        self.nivel_fuerza = nuevo_nivel
+        return f"{self.nombre} se ha transformado en Super Saiyajin! Nivel de fuerza: {self.nivel_fuerza}"
 
     def saludar(self):
         return f"Hola, soy {self.nombre} y soy un Saiyajin"
     
     def atacar(self):
-        return f"{self.nombre} (saiyajin) está atacando con fuerza {self.get_nivel_fuerza()}!"
+        return f"{self.nombre} (saiyajin) está atacando con fuerza {self.nivel_fuerza}!"
 
 class Guerrero(Personaje, GuerreroInterface):
     def __init__(self, nombre, nivel_fuerza, talla, planeta_origen):
@@ -55,7 +55,7 @@ class Guerrero(Personaje, GuerreroInterface):
         return f"Hola, soy {self.nombre} y soy un Guerrero"
 
     def atacar(self):
-        return f"{self.nombre} está atacando con fuerza {self.get_nivel_fuerza()}!"
+        return f"{self.nombre} está atacando con fuerza {self.nivel_fuerza}!"
     
     def elevar_ki(self):
         print(f"{self.nombre} ha elevado su ki!")

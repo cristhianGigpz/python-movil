@@ -1,5 +1,5 @@
 from personajes import Personaje
-from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol, GuerreroInterface
+from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol
 from torneo import Torneo
 from exceptions import ListadoNoEsListaException, ListadoVacioException
 
@@ -14,9 +14,9 @@ yajirobe = Guerrero("Yajirobe", 1500, 1.70, "Tierra")
 
 bulma = Personaje("Bulma", 500, 1.60, "Tierra")
 
-#print(goku.saludar())
-#print(goku.atacar())
-# print(goku.get_nivel_fuerza())
+print(goku.saludar())
+print(goku.atacar())
+print(goku.nivel_fuerza)
 # print(goku.transformarse_en_super_saiyajin())
 
 #print(krilin.saludar())
