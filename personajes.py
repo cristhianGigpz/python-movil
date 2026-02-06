@@ -5,6 +5,7 @@ class Personaje:
         self.talla = talla
         self.planeta_origen = planeta_origen
 
+    
     def saludar(self):
         return f"Hola, soy {self.nombre}"
     

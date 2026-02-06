@@ -21,3 +21,8 @@ class Torneo:
             print(f"{index}. {participante.nombre}")
             if index % 2 == 0:
                 print(f"combate {index // 2}: {lista_filtrada[index - 2].nombre} vs {participante.nombre}")
+    
+    @staticmethod
+    def preparar_combates():
+        print("Preparando los combates del torneo...")
+        

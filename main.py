@@ -47,3 +47,4 @@ except (ListadoNoEsListaException, ListadoVacioException) as e:
 # for personaje in lista_personajes:
 #     print(personaje.saludar())
 
+Torneo.preparar_combates()
