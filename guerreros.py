@@ -32,9 +32,15 @@ class SaiyajinProtocol(Protocol):
         ...
 
 class Saiyajin(Personaje):
+    contador = 0
     def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, cola = True):
         super().__init__(nombre, nivel_fuerza, talla, planeta_origen)
         self.cola = cola
+        Saiyajin.contador += 1
+    
+    @classmethod
+    def crear_saiyajin_terricola(cls, nombre, nivel_fuerza, talla, cola=False):
+        return cls(nombre, nivel_fuerza, talla, "Tierra", cola=cola)
 
     def transformarse_en_super_saiyajin(self):
         nuevo_nivel = self.nivel_fuerza * 100
@@ -42,10 +48,14 @@ class Saiyajin(Personaje):
         return f"{self.nombre} se ha transformado en Super Saiyajin! Nivel de fuerza: {self.nivel_fuerza}"
 
     def saludar(self):
-        return f"Hola, soy {self.nombre} y soy un Saiyajin"
+        return f"Hola, soy {self.nombre} y soy un Saiyajin del planeta {self.planeta_origen}"
     
     def atacar(self):
         return f"{self.nombre} (saiyajin) está atacando con fuerza {self.nivel_fuerza}!"
+    
+    @classmethod
+    def cantidad_saiyajines(cls):
+        return cls.contador
 
 class Guerrero(Personaje, GuerreroInterface):
     def __init__(self, nombre, nivel_fuerza, talla, planeta_origen):

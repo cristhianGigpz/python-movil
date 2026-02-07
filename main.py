@@ -24,7 +24,11 @@ print(goku.nivel_fuerza)
 
 krilin.aumentar_fuerza()
 #krilin.elevar_ki()
+gohan = Saiyajin.crear_saiyajin_terricola("Gohan", 5000, 1.80, cola=True)
+print(gohan.saludar())
 
+gothenks = Saiyajin("Gotenks", 6000, 1.70, "Tierra", cola=False)
+print(gothenks.saludar())
 
 torneo_dragon_ball = Torneo("======Bienvenido al Torneo Dragon Ball 1======")
 torneo_dragon_ball.participantes = [goku, vegeta, krilin, bulma, picollo, yancha, tenshinhan, chaozu, yajirobe]
@@ -48,3 +52,4 @@ except (ListadoNoEsListaException, ListadoVacioException) as e:
 #     print(personaje.saludar())
 
 Torneo.preparar_combates()
+print(f"Cantidad de Saiyajines: {Saiyajin.cantidad_saiyajines()}")
