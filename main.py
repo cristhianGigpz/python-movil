@@ -14,24 +14,29 @@ yajirobe = Guerrero("Yajirobe", 1500, 1.70, "Tierra")
 
 bulma = Personaje("Bulma", 500, 1.60, "Tierra")
 
-print(goku.saludar())
-print(goku.atacar())
-print(goku.nivel_fuerza)
+# print(goku.saludar())
+# print(goku.atacar())
+# print(goku.nivel_fuerza)
 # print(goku.transformarse_en_super_saiyajin())
 
 #print(krilin.saludar())
 #print(krilin.atacar())
 
-krilin.aumentar_fuerza()
+#krilin.aumentar_fuerza()
 #krilin.elevar_ki()
 gohan = Saiyajin.crear_saiyajin_terricola("Gohan", 5000, 1.80, cola=True)
 print(gohan.saludar())
 
-gothenks = Saiyajin("Gotenks", 6000, 1.70, "Tierra", cola=False)
+gothenks = Saiyajin.crear_saiyajin_terricola("Gotenks", 4000, 1.70, cola=False)
 print(gothenks.saludar())
 
+trunks = Saiyajin.crear_saiyajin_terricola("Trunks", 4500, 1.75, cola=False)
+print(trunks.saludar())
+
+rochi = Guerrero("Rochi", 2000, 1.60, "Tierra")
+
 torneo_dragon_ball = Torneo("======Bienvenido al Torneo Dragon Ball 1======")
-torneo_dragon_ball.participantes = [goku, vegeta, krilin, bulma, picollo, yancha, tenshinhan, chaozu, yajirobe]
+torneo_dragon_ball.participantes = [goku, vegeta, krilin, bulma, picollo, yancha, tenshinhan, chaozu, yajirobe, gohan, gothenks, trunks, rochi]
 
 print(torneo_dragon_ball.titulo)
 print("Solo participantes con nivel de fuerza > 1000:")
@@ -53,3 +58,6 @@ except (ListadoNoEsListaException, ListadoVacioException) as e:
 
 Torneo.preparar_combates()
 print(f"Cantidad de Saiyajines: {Saiyajin.cantidad_saiyajines()}")
+
+
+torneo_dragon_ball.iniciar_torneo() 
