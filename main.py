@@ -35,6 +35,9 @@ trunks = Saiyajin.crear_saiyajin_terricola("Trunks", 4500, 1.75, cola=False)
 
 rochi = Guerrero("Rochi", 2000, 1.60, "Tierra")
 
+print(bulma.despedirse("¡Hasta luego!"))
+print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
+
 torneo_dragon_ball = Torneo("\n======Bienvenido al Torneo Dragon Ball 1======")
 torneo_dragon_ball.participantes = [goku, vegeta, krilin, bulma, picollo, tenshinhan, gohan, gothenks, trunks]
 
@@ -60,4 +63,4 @@ Torneo.preparar_combates()
 print(f"Cantidad de Saiyajines: {Saiyajin.cantidad_saiyajines()}")
 
 
-torneo_dragon_ball.iniciar_torneo()
+#torneo_dragon_ball.iniciar_torneo()

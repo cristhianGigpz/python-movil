@@ -1,3 +1,11 @@
+def agregar_despedida(clss):
+    def despedirse(self, mensaje):
+        return f"Adiós, soy {self.nombre}, {mensaje}"
+    
+    clss.despedirse = despedirse
+    return clss
+
+@agregar_despedida
 class Personaje:
     def __init__(self, nombre, nivel_fuerza, talla, planeta_origen):
         self.nombre = nombre
