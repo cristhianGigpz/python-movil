@@ -39,11 +39,12 @@ print(bulma.despedirse("¡Hasta luego!"))
 print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
 
 torneo_dragon_ball = Torneo("\n======Bienvenido al Torneo Dragon Ball 1======")
-torneo_dragon_ball.participantes = [goku, vegeta, krilin, bulma, picollo, tenshinhan, gohan, gothenks, trunks]
+torneo_dragon_ball.participantes = [goku, vegeta, krilin, picollo, tenshinhan, gohan, gothenks, trunks]
 
 print(torneo_dragon_ball.titulo)
 print("Solo participantes con nivel de fuerza > 1000:")
 lista_filtrada = torneo_dragon_ball.listar_participantes()
+
 for participante in lista_filtrada:
     print(participante.nombre)
 print("\nSorteo de participantes y combates:")

@@ -1,6 +1,26 @@
 import random
 from exceptions import ListadoNoEsListaException, ListadoVacioException
 from time import sleep
+
+def log_metodo(method):
+    def wrapper(self, *args, **kwargs):
+        print(f"Ejecutando método: {method.__name__}")
+        sleep(1)  # Simula el tiempo de ejecución del método
+        result = method(self, *args, **kwargs)
+        print(f"Método {method.__name__} finalizado")
+        return result
+    return wrapper
+
+# def filtrar_participantes(func):
+#     def wrapper(self, *args, **kwargs):
+#         print("Filtrando participantes con nivel de fuerza > 1000...")
+#         if any(p.nivel_fuerza < 1000 for p in self.participantes):
+#             raise ValueError("Todos los participantes deben tener un nivel de fuerza mayor a 1000.")
+#         resultado = func(self, *args, **kwargs)
+#         print("Filtrado completado.")
+#         return resultado
+#     return wrapper
+
 class Torneo:
     def __init__(self, titulo):
         self.titulo = titulo
@@ -9,8 +29,8 @@ class Torneo:
         self.ganadores = []
         self.semifinalistas = []
         self.finalistas = []
-        
     
+    @log_metodo
     def listar_participantes(self):
         return [p for p in self.participantes if p.nivel_fuerza > 1000]
     
@@ -21,6 +41,7 @@ class Torneo:
         if not lista_filtrada:
             raise ListadoVacioException("La lista proporcionada está vacía.")
         
+        sleep(2)  # Simula el tiempo de preparación para el sorteo
         random.shuffle(lista_filtrada)
         for index, participante in enumerate(lista_filtrada, start=1):
             print(f"{index}. {participante.nombre}")
