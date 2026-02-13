@@ -1,6 +1,9 @@
 import random
-from exceptions import ListadoNoEsListaException, ListadoVacioException
 from time import sleep
+from exceptions import ListadoNoEsListaException, ListadoVacioException
+from utilidades import medir_tiempo
+
+
 
 def log_metodo(method):
     def wrapper(self, *args, **kwargs):
@@ -49,9 +52,11 @@ class Torneo:
                 self.batallas.append((lista_filtrada[index - 2], participante))
                 print(f"combate {index // 2}: {lista_filtrada[index - 2].nombre} vs {participante.nombre}")
     
+    @medir_tiempo
     @staticmethod
     def preparar_combates():
         print("Preparando los combates del torneo...")
+        sleep(2)  # Simula el tiempo de preparación para los combates
 
     def iniciar_torneo(self):
         print("Iniciando batallas...")
