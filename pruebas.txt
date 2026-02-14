@@ -1,0 +1,7 @@
+def multiplicar_ataque(veces):
+    def decorador(func):
+        def wrapper(self, *args, **kwargs):
+            resultado = func(self, *args, **kwargs)
+            return resultado * veces
+        return wrapper
+    return decorador

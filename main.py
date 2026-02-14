@@ -38,6 +38,8 @@ rochi = Guerrero("Rochi", 2000, 1.60, "Tierra")
 print(bulma.despedirse("¡Hasta luego!"))
 print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
 
+print(krilin.atacar())
+
 torneo_dragon_ball = Torneo("\n======Bienvenido al Torneo Dragon Ball 1======")
 torneo_dragon_ball.participantes = [goku, vegeta, krilin, picollo, tenshinhan, gohan, gothenks, trunks]
 

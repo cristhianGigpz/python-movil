@@ -57,6 +57,14 @@ class Saiyajin(Personaje):
     def cantidad_saiyajines(cls):
         return cls.contador
 
+def multiplicar_ataque(veces):
+    def decorador(func):
+        def wrapper(self, *args, **kwargs):
+            resultado = func(self, *args, **kwargs)
+            return resultado * veces
+        return wrapper
+    return decorador
+
 class Guerrero(Personaje, GuerreroInterface):
     def __init__(self, nombre, nivel_fuerza, talla, planeta_origen):
         super().__init__(nombre, nivel_fuerza, talla, planeta_origen)
@@ -64,8 +72,9 @@ class Guerrero(Personaje, GuerreroInterface):
     def saludar(self):
         return f"Hola, soy {self.nombre} y soy un Guerrero"
 
+    @multiplicar_ataque(3)
     def atacar(self):
-        return f"{self.nombre} está atacando con fuerza {self.nivel_fuerza}!"
+        return f"\n{self.nombre} está atacando con fuerza {self.nivel_fuerza}!"
     
     def elevar_ki(self):
         print(f"{self.nombre} ha elevado su ki!")
