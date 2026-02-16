@@ -46,11 +46,19 @@ class Torneo:
         
         sleep(2)  # Simula el tiempo de preparación para el sorteo
         random.shuffle(lista_filtrada)
-        for index, participante in enumerate(lista_filtrada, start=1):
-            print(f"{index}. {participante.nombre}")
-            if index % 2 == 0:
-                self.batallas.append((lista_filtrada[index - 2], participante))
-                print(f"combate {index // 2}: {lista_filtrada[index - 2].nombre} vs {participante.nombre}")
+
+        def generar_combates():
+            for index, participante in enumerate(lista_filtrada, start=1):
+                print(f"{index}. {participante.nombre}")
+                if index % 2 == 0:
+                    combate = (lista_filtrada[index - 2], participante)
+                    yield combate
+        
+        for num_combate, (p1, p2) in enumerate(generar_combates(), start=1):
+            print(f"\nSorteo Combate {num_combate}: {p1.nombre} vs {p2.nombre}")
+            self.batallas.append((p1, p2))
+            sleep(1)  # Simula el tiempo del sorteo de cada combate
+        
     
     @medir_tiempo
     @staticmethod
