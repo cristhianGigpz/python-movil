@@ -55,7 +55,7 @@ class Torneo:
                     yield combate
         
         for num_combate, (p1, p2) in enumerate(generar_combates(), start=1):
-            print(f"\nSorteo Combate {num_combate}: {p1.nombre} vs {p2.nombre}")
+            print(f"Sorteo Combate {num_combate}: {p1.nombre} vs {p2.nombre}")
             self.batallas.append((p1, p2))
             sleep(1)  # Simula el tiempo del sorteo de cada combate
         
@@ -63,11 +63,11 @@ class Torneo:
     @medir_tiempo
     @staticmethod
     def preparar_combates():
-        print("Preparando los combates del torneo...")
+        print("\nPreparando los combates del torneo...")
         sleep(2)  # Simula el tiempo de preparación para los combates
 
     def iniciar_torneo(self):
-        print("Iniciando batallas...")
+        print("\nIniciando batallas...")
         sleep(2)  # Simula el tiempo de preparación para los combates
         for combate in self.batallas:
             participante1, participante2 = combate

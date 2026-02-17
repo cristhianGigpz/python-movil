@@ -38,32 +38,45 @@ rochi = Guerrero("Rochi", 2000, 1.60, "Tierra")
 print(bulma.despedirse("¡Hasta luego!"))
 print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
 
-print(krilin.atacar())
+#print(krilin.atacar())
+contador = 0
+while True:
+    respuesta = input("\n¿Quieres iniciar el juego? (s/n): ")
+    if respuesta.lower() == 'n':
+        print("¡Juego terminado juego!")
+        break
+    elif respuesta.lower() == 's':
+        print("¡Comenzando el juego!")
+        contador += 1
 
-torneo_dragon_ball = Torneo("\n======Bienvenido al Torneo Dragon Ball 1======")
-torneo_dragon_ball.participantes = [goku, vegeta, krilin, picollo, tenshinhan, gohan, gothenks, trunks]
+        torneo_dragon_ball = Torneo(f"\n======Bienvenido al Torneo Dragon Ball {contador}======")
 
-print(torneo_dragon_ball.titulo)
-print("Solo participantes con nivel de fuerza > 1000:")
-lista_filtrada = torneo_dragon_ball.listar_participantes()
+        torneo_dragon_ball.participantes = [goku, vegeta, krilin, picollo, tenshinhan, gohan, gothenks, trunks]
 
-for participante in lista_filtrada:
-    print(participante.nombre)
-print("\nSorteo de participantes y combates:")
-try:
-    torneo_dragon_ball.sortear_participantes(lista_filtrada)
-except (ListadoNoEsListaException, ListadoVacioException) as e:
-    print(f"Error: {e}")
+        print(torneo_dragon_ball.titulo)
+        print("Solo participantes con nivel de fuerza > 1000:")
+        lista_filtrada = torneo_dragon_ball.listar_participantes()
 
-# litas_guerreros: list[SaiyajinProtocol] = [goku, vegeta, krilin, bulma]
-# for guerrero in litas_guerreros:
-#     print(guerrero.atacar())
-# lista_personajes = [goku, vegeta, bulma]
-# for personaje in lista_personajes:
-#     print(personaje.saludar())
+        for participante in lista_filtrada:
+            print(participante.nombre)
+        print("\nSorteo de participantes y combates:")
+        try:
+            torneo_dragon_ball.sortear_participantes(lista_filtrada)
+        except (ListadoNoEsListaException, ListadoVacioException) as e:
+            print(f"Error: {e}")
 
-Torneo.preparar_combates()
-print(f"Cantidad de Saiyajines: {Saiyajin.cantidad_saiyajines()}")
+        # litas_guerreros: list[SaiyajinProtocol] = [goku, vegeta, krilin, bulma]
+        # for guerrero in litas_guerreros:
+        #     print(guerrero.atacar())
+        # lista_personajes = [goku, vegeta, bulma]
+        # for personaje in lista_personajes:
+        #     print(personaje.saludar())
+
+        Torneo.preparar_combates()
+        print(f"Cantidad de Saiyajines: {Saiyajin.cantidad_saiyajines()}")
 
 
-#torneo_dragon_ball.iniciar_torneo()
+        torneo_dragon_ball.iniciar_torneo()
+
+    else:
+        print("Respuesta no válida. Por favor, ingresa 's' para sí o 'n' para no.")
