@@ -111,6 +111,7 @@ class Torneo:
         sleep(2)
         if len(self.finalistas) == 2:
             print(f"\nCombate Final: {self.finalistas[0].nombre} vs {self.finalistas[1].nombre}")
+            sleep(2)  # Simula el tiempo del combate final
             if self.finalistas[0].nivel_fuerza > self.finalistas[1].nivel_fuerza:
                 print(f"¡El Gran Campeón del Torneo Dragon Ball es: {self.finalistas[0].nombre}!")
             elif self.finalistas[1].nivel_fuerza > self.finalistas[0].nivel_fuerza:
@@ -120,4 +121,4 @@ class Torneo:
         else:
             print("No hay suficientes finalistas para el combate final o son muchos.")
         sleep(3)
-        print("Torneo finalizado. Gracias por participar!")
+        print("\nTorneo finalizado. Gracias por participar!")

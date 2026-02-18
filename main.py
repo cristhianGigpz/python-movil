@@ -43,7 +43,7 @@ contador = 0
 while True:
     respuesta = input("\n¿Quieres iniciar el juego? (s/n): ")
     if respuesta.lower() == 'n':
-        print("¡Juego terminado juego!")
+        print("¡Juego terminado!")
         break
     elif respuesta.lower() == 's':
         print("¡Comenzando el juego!")
