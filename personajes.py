@@ -7,12 +7,12 @@ def agregar_despedida(clss):
 
 @agregar_despedida
 class Personaje:
-    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen):
+    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, resistencia=10000):
         self.nombre = nombre
         self.__nivel_fuerza = nivel_fuerza
         self.talla = talla
         self.planeta_origen = planeta_origen
-
+        self.resistencia = resistencia
     
     def saludar(self):
         return f"Hola, soy {self.nombre}"

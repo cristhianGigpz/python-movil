@@ -4,7 +4,7 @@ from personajes import Personaje
 
 class GuerreroInterface(ABC):
     @abstractmethod
-    def atacar(self) -> str:
+    def atacar(self, personaje: Personaje) -> str:
         pass
 
     @abstractmethod
@@ -50,7 +50,8 @@ class Saiyajin(Personaje):
     def saludar(self):
         return f"Hola, soy {self.nombre} y soy un Saiyajin del planeta {self.planeta_origen}"
     
-    def atacar(self):
+    def atacar(self, personaje: Personaje):
+        personaje.resistencia -= self.nivel_fuerza
         return f"{self.nombre} (saiyajin) está atacando con fuerza {self.nivel_fuerza}!"
     
     @classmethod
@@ -72,9 +73,10 @@ class Guerrero(Personaje, GuerreroInterface):
     def saludar(self):
         return f"Hola, soy {self.nombre} y soy un Guerrero"
 
-    @multiplicar_ataque(3)
-    def atacar(self):
-        return f"\n{self.nombre} está atacando con fuerza {self.nivel_fuerza}!"
+    #@multiplicar_ataque(3)
+    def atacar(self, personaje: Personaje):
+        personaje.resistencia -= self.nivel_fuerza
+        return f"{self.nombre} está atacando con fuerza {self.nivel_fuerza}!"
     
     def elevar_ki(self):
         print(f"{self.nombre} ha elevado su ki!")
