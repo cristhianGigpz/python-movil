@@ -106,6 +106,9 @@ class Torneo:
                     print(f"Ganador Semifinal: {peleador.nombre}")
                     self.finalistas.append(peleador)
         print("\n-------(Finalistas)-------------------")
+        for index, finalista in enumerate(self.finalistas, start=1):
+            print(f"{index}. {finalista.nombre} - Nivel de Fuerza: {finalista.nivel_fuerza}")
+        print("---------------------------------------")
         sleep(2)
         print("===========Preparando Final===========")
         sleep(2)
