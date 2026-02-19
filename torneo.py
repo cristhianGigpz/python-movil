@@ -98,55 +98,65 @@ class Torneo:
                 print(f"{ganador.nombre} avanza a la siguiente ronda!")
             else:
                 print(f"Empate entre {participante1.nombre} y {participante2.nombre}")
-            # if participante1.nivel_fuerza > participante2.nivel_fuerza:
-            #     print(f"Ganador: {participante1.nombre}")
-            #     ganador = participante1
-            # elif participante2.nivel_fuerza > participante1.nivel_fuerza:
-            #     print(f"Ganador: {participante2.nombre}")
-            #     ganador = participante2
-            # else:
-            #     print("Empate: No hay ganador")
-            #     ganador = None
             
-            # if ganador:
-            #     self.ganadores.append(ganador)
-            #     print(f"{ganador.nombre} avanza a la siguiente ronda!")
-            # else:
-            #     print(f"Empate entre {participante1.nombre} y {participante2.nombre}")
         print("\n-----------(Semifinalistas)-------------------")
-        # for index, ganador in enumerate(self.ganadores, start=1):
-        #     self.semifinalistas.append(ganador)
-        #     print(f"{index}. {ganador.nombre} - Nivel de Fuerza: {ganador.nivel_fuerza}")
-        # print("------------------------------")
-        # sleep(1)
-        # print("======= Iniciando Semifinales =======")
-        # sleep(2)
-        # for index, peleador in enumerate(self.semifinalistas, start=1):
-        #     if index % 2 == 0:
-        #         print(f"\nCombate Semifinal: {self.semifinalistas[index - 2].nombre} vs {peleador.nombre}")
-        #         if self.semifinalistas[index - 2].nivel_fuerza > peleador.nivel_fuerza:
-        #             print(f"Ganador Semifinal: {self.semifinalistas[index - 2].nombre}")
-        #             self.finalistas.append(self.semifinalistas[index - 2])
-        #         else:
-        #             print(f"Ganador Semifinal: {peleador.nombre}")
-        #             self.finalistas.append(peleador)
-        # print("\n-------(Finalistas)-------------------")
-        # for index, finalista in enumerate(self.finalistas, start=1):
-        #     print(f"{index}. {finalista.nombre} - Nivel de Fuerza: {finalista.nivel_fuerza}")
-        # print("---------------------------------------")
-        # sleep(2)
-        # print("===========Preparando Final===========")
-        # sleep(2)
-        # if len(self.finalistas) == 2:
-        #     print(f"\nCombate Final: {self.finalistas[0].nombre} vs {self.finalistas[1].nombre}")
-        #     sleep(2)  # Simula el tiempo del combate final
-        #     if self.finalistas[0].nivel_fuerza > self.finalistas[1].nivel_fuerza:
-        #         print(f"¡El Gran Campeón del Torneo Dragon Ball es: {self.finalistas[0].nombre}!")
-        #     elif self.finalistas[1].nivel_fuerza > self.finalistas[0].nivel_fuerza:
-        #         print(f"¡El Gran Campeón del Torneo Dragon Ball es: {self.finalistas[1].nombre}!")
-        #     else:
-        #         print("¡Empate en la final! No hay campeón.")
-        # else:
-        #     print("No hay suficientes finalistas para el combate final o son muchos.")
-        # sleep(3)
-        # print("\nTorneo finalizado. Gracias por participar!")
+        for index, ganador in enumerate(self.ganadores, start=1):
+            self.semifinalistas.append(ganador)
+            print(f"{index}. {ganador.nombre} - Nivel de Fuerza: {ganador.nivel_fuerza}")
+        print("------------------------------")
+        sleep(1)
+        print("======= Iniciando Semifinales =======")
+        sleep(2)
+        for index, peleador in enumerate(self.semifinalistas, start=1):
+            if index % 2 == 0:
+                print(f"\nCombate Semifinal: {self.semifinalistas[index - 2].nombre} vs {peleador.nombre}")
+                print(self.semifinalistas[index - 2].atacar(peleador))
+                print(peleador.atacar(self.semifinalistas[index - 2]))
+                while self.semifinalistas[index - 2].resistencia > 0 and peleador.resistencia > 0:
+                    print(self.semifinalistas[index - 2].atacar(peleador))
+                    print(peleador.atacar(self.semifinalistas[index - 2]))
+                    sleep(2)  # Simula el tiempo entre ataques
+                
+                if self.semifinalistas[index - 2].resistencia > peleador.resistencia:
+                    print(f"Ganador Semifinal: {self.semifinalistas[index - 2].nombre} con resistencia restante {self.semifinalistas[index - 2].resistencia}")
+                    print(f"Perdedor Semifinal: {peleador.nombre} con resistencia restante {peleador.resistencia}")
+                    self.finalistas.append(self.semifinalistas[index - 2])
+                elif peleador.resistencia > self.semifinalistas[index - 2].resistencia:
+                    print(f"Ganador Semifinal: {peleador.nombre} con resistencia restante {peleador.resistencia}")
+                    print(f"Perdedor Semifinal: {self.semifinalistas[index - 2].nombre} con resistencia restante {self.semifinalistas[index - 2].resistencia}")
+                    self.finalistas.append(peleador)
+                else:
+                    print(f"Empate en Semifinal: {self.semifinalistas[index - 2].nombre} y {peleador.nombre}")
+                    # En caso de empate, ambos avanzan a la final (opcional)
+                    self.finalistas.append(self.semifinalistas[index - 2])
+                    self.finalistas.append(peleador)    
+                
+        print("\n-------(Finalistas)-------------------")
+        for index, finalista in enumerate(self.finalistas, start=1):
+            print(f"{index}. {finalista.nombre} - Nivel de Fuerza: {finalista.nivel_fuerza}")
+        print("---------------------------------------")
+        print("===========Preparando Final===========")
+        sleep(2)
+        if len(self.finalistas) == 2:
+            print(f"\nCombate Final: {self.finalistas[0].nombre} vs {self.finalistas[1].nombre}")
+            sleep(2)  # Simula el tiempo del combate final
+            print(self.finalistas[0].atacar(self.finalistas[1]))
+            print(self.finalistas[1].atacar(self.finalistas[0]))
+            while self.finalistas[0].resistencia > 0 and self.finalistas[1].resistencia > 0:
+                print(self.finalistas[0].atacar(self.finalistas[1]))
+                print(self.finalistas[1].atacar(self.finalistas[0]))
+                sleep(2)  # Simula el tiempo entre ataques
+            
+            if self.finalistas[0].resistencia > self.finalistas[1].resistencia:
+                print(f"¡El Gran Campeón del Torneo Dragon Ball es: {self.finalistas[0].nombre} con resistencia restante {self.finalistas[0].resistencia}!")
+                print(f"Subcampeón: {self.finalistas[1].nombre} con resistencia restante {self.finalistas[1].resistencia}")
+            elif self.finalistas[1].resistencia > self.finalistas[0].resistencia:
+                print(f"¡El Gran Campeón del Torneo Dragon Ball es: {self.finalistas[1].nombre} con resistencia restante {self.finalistas[1].resistencia}!")
+                print(f"Subcampeón: {self.finalistas[0].nombre} con resistencia restante {self.finalistas[0].resistencia}")
+            else:                
+                print("¡Empate en la final! No hay campeón.")
+            
+        else:
+            print("No hay suficientes finalistas para el combate final o son muchos.")
+        sleep(3)
+        print("\nTorneo finalizado. Gracias por participar!")
