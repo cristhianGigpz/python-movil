@@ -49,7 +49,13 @@ while True:
         print("¡Comenzando el juego!")
         contador += 1
 
-        torneo_dragon_ball = Torneo(f"\n======Bienvenido al Torneo Dragon Ball {contador}======")
+        type_torneo = input("¿Quieres un torneo relampago? (s/n): ")
+        if type_torneo.lower() == 's':
+            tipo = True
+        else:
+            tipo = False
+
+        torneo_dragon_ball = Torneo(f"\n======Bienvenido al Torneo Dragon Ball {contador}======", tipo=tipo)
 
         torneo_dragon_ball.participantes = [goku, vegeta, krilin, picollo, tenshinhan, gohan, gothenks, trunks]
 

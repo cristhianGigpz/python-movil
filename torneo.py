@@ -25,8 +25,9 @@ def log_metodo(method):
 #     return wrapper
 
 class Torneo:
-    def __init__(self, titulo):
+    def __init__(self, titulo, tipo=False):
         self.titulo = titulo
+        self.tipo = tipo
         self.participantes = []
         self.batallas = []
         self.ganadores = []
@@ -110,6 +111,11 @@ class Torneo:
         for index, peleador in enumerate(self.semifinalistas, start=1):
             if index % 2 == 0:
                 print(f"\nCombate Semifinal: {self.semifinalistas[index - 2].nombre} vs {peleador.nombre}")
+
+                if (not self.tipo):
+                    self.semifinalistas[index - 2].resistencia = 10000  # Reinicia la resistencia para la semifinal
+                    peleador.resistencia = 10000  # Reinicia la resistencia para la semifinal
+
                 print(self.semifinalistas[index - 2].atacar(peleador))
                 print(peleador.atacar(self.semifinalistas[index - 2]))
                 while self.semifinalistas[index - 2].resistencia > 0 and peleador.resistencia > 0:
@@ -140,6 +146,11 @@ class Torneo:
         if len(self.finalistas) == 2:
             print(f"\nCombate Final: {self.finalistas[0].nombre} vs {self.finalistas[1].nombre}")
             sleep(2)  # Simula el tiempo del combate final
+            
+            if (not self.tipo):
+                self.finalistas[0].resistencia = 10000  # Reinicia la resistencia para la final
+                self.finalistas[1].resistencia = 10000  # Reinicia la resistencia
+
             print(self.finalistas[0].atacar(self.finalistas[1]))
             print(self.finalistas[1].atacar(self.finalistas[0]))
             while self.finalistas[0].resistencia > 0 and self.finalistas[1].resistencia > 0:
@@ -148,10 +159,10 @@ class Torneo:
                 sleep(2)  # Simula el tiempo entre ataques
             
             if self.finalistas[0].resistencia > self.finalistas[1].resistencia:
-                print(f"¡El Gran Campeón del Torneo Dragon Ball es: {self.finalistas[0].nombre} con resistencia restante {self.finalistas[0].resistencia}!")
+                print(f"\n¡El Gran Campeón del Torneo Dragon Ball es: {self.finalistas[0].nombre} con resistencia restante {self.finalistas[0].resistencia}!")
                 print(f"Subcampeón: {self.finalistas[1].nombre} con resistencia restante {self.finalistas[1].resistencia}")
             elif self.finalistas[1].resistencia > self.finalistas[0].resistencia:
-                print(f"¡El Gran Campeón del Torneo Dragon Ball es: {self.finalistas[1].nombre} con resistencia restante {self.finalistas[1].resistencia}!")
+                print(f"\n¡El Gran Campeón del Torneo Dragon Ball es: {self.finalistas[1].nombre} con resistencia restante {self.finalistas[1].resistencia}!")
                 print(f"Subcampeón: {self.finalistas[0].nombre} con resistencia restante {self.finalistas[0].resistencia}")
             else:                
                 print("¡Empate en la final! No hay campeón.")
