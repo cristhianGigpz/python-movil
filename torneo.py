@@ -31,6 +31,7 @@ class Torneo:
         self.participantes = []
         self.batallas = []
         self.ganadores = []
+        self.segundaRonda = []
         self.semifinalistas = []
         self.finalistas = []
     
@@ -100,13 +101,48 @@ class Torneo:
             else:
                 print(f"Empate entre {participante1.nombre} y {participante2.nombre}")
             
-        print("\n-----------(Semifinalistas)-------------------")
+        print("\n-----------(Pasan a Segunda Ronda)-------------------")
         for index, ganador in enumerate(self.ganadores, start=1):
-            self.semifinalistas.append(ganador)
+            self.segundaRonda.append(ganador)
             print(f"{index}. {ganador.nombre} - Nivel de Fuerza: {ganador.nivel_fuerza}")
         print("------------------------------")
         sleep(1)
-        print("======= Iniciando Semifinales =======")
+        print("======= Iniciando Segunda Ronda =======")
+        sleep(2)
+        for index, peleador in enumerate(self.segundaRonda, start=1):
+            if index % 2 == 0:
+                print(f"\nCombate Segunda Ronda: {self.segundaRonda[index - 2].nombre} vs {peleador.nombre}")
+
+                if (not self.tipo):
+                    self.segundaRonda[index - 2].resistencia = 10000  # Reinicia la resistencia para la segunda ronda
+                    peleador.resistencia = 10000  # Reinicia la resistencia para la segunda ronda
+
+                print(self.segundaRonda[index - 2].atacar(peleador))
+                print(peleador.atacar(self.segundaRonda[index - 2]))
+                while self.segundaRonda[index - 2].resistencia > 0 and peleador.resistencia > 0:
+                    print(self.segundaRonda[index - 2].atacar(peleador))
+                    print(peleador.atacar(self.segundaRonda[index - 2]))
+                    sleep(2)  # Simula el tiempo entre ataques
+                
+                if self.segundaRonda[index - 2].resistencia > peleador.resistencia:
+                    print(f"Ganador Segunda Ronda: {self.segundaRonda[index - 2].nombre} con resistencia restante {self.segundaRonda[index - 2].resistencia}")
+                    print(f"Perdedor Segunda Ronda: {peleador.nombre} con resistencia restante {peleador.resistencia}")
+                    self.semifinalistas.append(self.segundaRonda[index - 2])
+                elif peleador.resistencia > self.segundaRonda[index - 2].resistencia:
+                    print(f"Ganador Segunda Ronda: {peleador.nombre} con resistencia restante {peleador.resistencia}")
+                    print(f"Perdedor Segunda Ronda: {self.segundaRonda[index - 2].nombre} con resistencia restante {self.segundaRonda[index - 2].resistencia}")
+                    self.semifinalistas.append(peleador)
+                else:
+                    print(f"Empate en Segunda Ronda: {self.segundaRonda[index - 2].nombre} y {peleador.nombre}")
+                    # En caso de empate, ambos avanzan a la final (opcional)
+                    self.semifinalistas.append(self.segundaRonda[index - 2])
+                    self.semifinalistas.append(peleador)    
+                
+        print("\n-------(Semifinalistas)-------------------")
+        for index, semifinalista in enumerate(self.semifinalistas, start=1):
+            print(f"{index}. {semifinalista.nombre} - Nivel de Fuerza: {semifinalista.nivel_fuerza}")
+        print("---------------------------------------")
+        print("===========Preparando Semifinal===========")
         sleep(2)
         for index, peleador in enumerate(self.semifinalistas, start=1):
             if index % 2 == 0:
@@ -135,11 +171,8 @@ class Torneo:
                     print(f"Empate en Semifinal: {self.semifinalistas[index - 2].nombre} y {peleador.nombre}")
                     # En caso de empate, ambos avanzan a la final (opcional)
                     self.finalistas.append(self.semifinalistas[index - 2])
-                    self.finalistas.append(peleador)    
-                
-        print("\n-------(Finalistas)-------------------")
-        for index, finalista in enumerate(self.finalistas, start=1):
-            print(f"{index}. {finalista.nombre} - Nivel de Fuerza: {finalista.nivel_fuerza}")
+                    self.finalistas.append(peleador)
+        
         print("---------------------------------------")
         print("===========Preparando Final===========")
         sleep(2)

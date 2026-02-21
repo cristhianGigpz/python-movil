@@ -34,6 +34,10 @@ trunks = Saiyajin.crear_saiyajin_terricola("Trunks", 4500, 1.75, cola=False)
 #print(trunks.saludar())
 
 rochi = Guerrero("Rochi", 2000, 1.60, "Tierra")
+broly = Saiyajin("Broly", 10000, 2.50, "Planeta Vegeta", cola=True)
+napa = Saiyajin("Napa", 7000, 1.90, "Planeta Vegeta", cola=True)
+raditz = Saiyajin("Raditz", 6000, 1.85, "Planeta Vegeta", cola=True)
+frezzer = Guerrero("Frezzer", 9900, 1.80, "Planeta Freezer")
 
 print(bulma.despedirse("¡Hasta luego!"))
 print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
@@ -57,7 +61,7 @@ while True:
 
         torneo_dragon_ball = Torneo(f"\n======Bienvenido al Torneo Dragon Ball {contador}======", tipo=tipo)
 
-        torneo_dragon_ball.participantes = [goku, vegeta, krilin, picollo, tenshinhan, gohan, gothenks, trunks]
+        torneo_dragon_ball.participantes = [goku, vegeta, krilin, picollo, tenshinhan, gohan, gothenks, trunks, rochi, broly, napa, raditz, frezzer, yancha, chaozu, yajirobe, bulma]
 
         print(torneo_dragon_ball.titulo)
         print("Solo participantes con nivel de fuerza > 1000:")
