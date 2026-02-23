@@ -1,4 +1,5 @@
 import random
+import time
 from time import sleep
 from exceptions import ListadoNoEsListaException, ListadoVacioException
 from utilidades import medir_tiempo
@@ -204,3 +205,24 @@ class Torneo:
             print("No hay suficientes finalistas para el combate final o son muchos.")
         sleep(3)
         print("\nTorneo finalizado. Gracias por participar!")
+    
+    def combate_clasificacion(self, participantes: list, duracion: int):
+        print(f"\nIniciando combate de clasificación entre ({participantes[0].nombre} y {participantes[1].nombre})")
+        inicio = time.perf_counter()
+        # print(participantes[0].atacar(participantes[1]))
+        # print(participantes[1].atacar(participantes[0]))
+        while participantes[0].resistencia > 0 and participantes[1].resistencia > 0:
+            print(participantes[0].atacar(participantes[1]))
+            print(participantes[1].atacar(participantes[0]))
+            sleep(duracion)  # Simula la duración del combate de clasificación
+        if participantes[0].resistencia > participantes[1].resistencia:
+            print(f"Ganador Combate Clasificación: {participantes[0].nombre} con resistencia restante {participantes[0].resistencia}")
+            print(f"Perdedor Combate Clasificación: {participantes[1].nombre} con resistencia restante {participantes[1].resistencia}")
+        elif participantes[1].resistencia > participantes[0].resistencia:
+            print(f"Ganador Combate Clasificación: {participantes[1].nombre} con resistencia restante {participantes[1].resistencia}")
+            print(f"Perdedor Combate Clasificación: {participantes[0].nombre} con resistencia restante {participantes[0].resistencia}")
+        else:
+            print("Empate en Combate de Clasificación: No hay ganador")
+        fin = time.perf_counter()
+        print(f"\nCombate de clasificación finalizado. Duración: {fin - inicio:.2f} segundos.")
+        return f"Resultados despues de {fin - inicio:.4f} segundos"

@@ -1,3 +1,4 @@
+import time
 from personajes import Personaje
 from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol
 from torneo import Torneo
@@ -43,50 +44,59 @@ print(bulma.despedirse("¡Hasta luego!"))
 print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
 
 #print(krilin.atacar())
-contador = 0
-while True:
-    respuesta = input("\n¿Quieres iniciar el juego? (s/n): ")
-    if respuesta.lower() == 'n':
-        print("¡Juego terminado!")
-        break
-    elif respuesta.lower() == 's':
-        print("¡Comenzando el juego!")
-        contador += 1
+torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
+print("Inicio de batallas sincronizadas:")
+inicio_total = time.perf_counter()
+resultado1 = torneo_dragon_ball.combate_clasificacion([broly, frezzer], 2)
+resultado2 = torneo_dragon_ball.combate_clasificacion([goku, vegeta], 2)
+fin_total = time.perf_counter()
+print(f"Resultados: {resultado1}, {resultado2}")
+print(f"Tiempo total de combates: {fin_total - inicio_total:.2f} segundos")
 
-        type_torneo = input("¿Quieres un torneo relampago? (s/n): ")
-        if type_torneo.lower() == 's':
-            tipo = True
-        else:
-            tipo = False
+# contador = 0
+# while True:
+#     respuesta = input("\n¿Quieres iniciar el juego? (s/n): ")
+#     if respuesta.lower() == 'n':
+#         print("¡Juego terminado!")
+#         break
+#     elif respuesta.lower() == 's':
+#         print("¡Comenzando el juego!")
+#         contador += 1
 
-        torneo_dragon_ball = Torneo(f"\n======Bienvenido al Torneo Dragon Ball {contador}======", tipo=tipo)
+#         type_torneo = input("¿Quieres un torneo relampago? (s/n): ")
+#         if type_torneo.lower() == 's':
+#             tipo = True
+#         else:
+#             tipo = False
 
-        torneo_dragon_ball.participantes = [goku, vegeta, krilin, picollo, tenshinhan, gohan, gothenks, trunks, rochi, broly, napa, raditz, frezzer, yancha, chaozu, yajirobe, bulma]
+#         torneo_dragon_ball = Torneo(f"\n======Bienvenido al Torneo Dragon Ball {contador}======", tipo=tipo)
 
-        print(torneo_dragon_ball.titulo)
-        print("Solo participantes con nivel de fuerza > 1000:")
-        lista_filtrada = torneo_dragon_ball.listar_participantes()
+#         torneo_dragon_ball.participantes = [goku, vegeta, krilin, picollo, tenshinhan, gohan, gothenks, trunks, rochi, broly, napa, raditz, frezzer, yancha, chaozu, yajirobe, bulma]
 
-        for participante in lista_filtrada:
-            print(participante.nombre)
-        print("\nSorteo de participantes y combates:")
-        try:
-            torneo_dragon_ball.sortear_participantes(lista_filtrada)
-        except (ListadoNoEsListaException, ListadoVacioException) as e:
-            print(f"Error: {e}")
+#         print(torneo_dragon_ball.titulo)
+#         print("Solo participantes con nivel de fuerza > 1000:")
+#         lista_filtrada = torneo_dragon_ball.listar_participantes()
 
-        # litas_guerreros: list[SaiyajinProtocol] = [goku, vegeta, krilin, bulma]
-        # for guerrero in litas_guerreros:
-        #     print(guerrero.atacar())
-        # lista_personajes = [goku, vegeta, bulma]
-        # for personaje in lista_personajes:
-        #     print(personaje.saludar())
+#         for participante in lista_filtrada:
+#             print(participante.nombre)
+#         print("\nSorteo de participantes y combates:")
+#         try:
+#             torneo_dragon_ball.sortear_participantes(lista_filtrada)
+#         except (ListadoNoEsListaException, ListadoVacioException) as e:
+#             print(f"Error: {e}")
 
-        Torneo.preparar_combates()
-        print(f"Cantidad de Saiyajines: {Saiyajin.cantidad_saiyajines()}")
+#         # litas_guerreros: list[SaiyajinProtocol] = [goku, vegeta, krilin, bulma]
+#         # for guerrero in litas_guerreros:
+#         #     print(guerrero.atacar())
+#         # lista_personajes = [goku, vegeta, bulma]
+#         # for personaje in lista_personajes:
+#         #     print(personaje.saludar())
+
+#         Torneo.preparar_combates()
+#         print(f"Cantidad de Saiyajines: {Saiyajin.cantidad_saiyajines()}")
 
 
-        torneo_dragon_ball.iniciar_torneo()
+#         torneo_dragon_ball.iniciar_torneo()
 
-    else:
-        print("Respuesta no válida. Por favor, ingresa 's' para sí o 'n' para no.")
+#     else:
+#         print("Respuesta no válida. Por favor, ingresa 's' para sí o 'n' para no.")
