@@ -1,4 +1,5 @@
 import time
+import asyncio
 from personajes import Personaje
 from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol
 from torneo import Torneo
@@ -44,15 +45,21 @@ print(bulma.despedirse("¡Hasta luego!"))
 print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
 
 #print(krilin.atacar())
-torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
-print("Inicio de batallas sincronizadas:")
-inicio_total = time.perf_counter()
-resultado1 = torneo_dragon_ball.combate_clasificacion([broly, frezzer], 2)
-resultado2 = torneo_dragon_ball.combate_clasificacion([goku, vegeta], 2)
-fin_total = time.perf_counter()
-print(f"Resultados: {resultado1}, {resultado2}")
-print(f"Tiempo total de combates: {fin_total - inicio_total:.2f} segundos")
+async def main():
+    torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
+    print("Inicio de batallas sincronizadas:")
+    inicio_total = time.perf_counter()
+    resultados = await asyncio.gather(
+        torneo_dragon_ball.combate_clasificacion([goku, vegeta], 2),
+        torneo_dragon_ball.combate_clasificacion([broly, frezzer], 2),
+        torneo_dragon_ball.combate_clasificacion([gohan, krilin], 2),
+        torneo_dragon_ball.combate_clasificacion([trunks, picollo], 2)
+    )
+    fin_total = time.perf_counter()
+    print("\nResultados:", resultados)
+    print(f"Tiempo total de combates: {fin_total - inicio_total:.2f} segundos")
 
+asyncio.run(main())
 # contador = 0
 # while True:
 #     respuesta = input("\n¿Quieres iniciar el juego? (s/n): ")
