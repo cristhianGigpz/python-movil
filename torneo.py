@@ -207,7 +207,7 @@ class Torneo:
         sleep(3)
         print("\nTorneo finalizado. Gracias por participar!")
     
-    async def combate_clasificacion(self, participantes: list, duracion: int):
+    def combate_clasificacion(self, participantes: list, duracion: int):
         print(f"\nIniciando combate de clasificación entre ({participantes[0].nombre} y {participantes[1].nombre})")
         inicio = time.perf_counter()
         # print(participantes[0].atacar(participantes[1]))
@@ -215,7 +215,7 @@ class Torneo:
         while participantes[0].resistencia > 0 and participantes[1].resistencia > 0:
             print(participantes[0].atacar(participantes[1]))
             print(participantes[1].atacar(participantes[0]))
-            await asyncio.sleep(duracion)  # Simula la duración del combate de clasificación
+            sleep(duracion)  # Simula la duración del combate de clasificación
         if participantes[0].resistencia > participantes[1].resistencia:
             print(f"Ganador Combate Clasificación: {participantes[0].nombre} con resistencia restante {participantes[0].resistencia}")
             print(f"Perdedor Combate Clasificación: {participantes[1].nombre} con resistencia restante {participantes[1].resistencia}")

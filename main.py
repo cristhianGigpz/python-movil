@@ -1,5 +1,6 @@
 import time
 import asyncio
+import threading
 from personajes import Personaje
 from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol
 from torneo import Torneo
@@ -45,21 +46,38 @@ print(bulma.despedirse("¡Hasta luego!"))
 print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
 
 #print(krilin.atacar())
-async def main():
-    torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
-    print("Inicio de batallas sincronizadas:")
-    inicio_total = time.perf_counter()
-    resultados = await asyncio.gather(
-        torneo_dragon_ball.combate_clasificacion([goku, vegeta], 2),
-        torneo_dragon_ball.combate_clasificacion([broly, frezzer], 2),
-        torneo_dragon_ball.combate_clasificacion([gohan, krilin], 2),
-        torneo_dragon_ball.combate_clasificacion([trunks, picollo], 2)
-    )
-    fin_total = time.perf_counter()
-    print("\nResultados:", resultados)
-    print(f"Tiempo total de combates: {fin_total - inicio_total:.2f} segundos")
+# async def main():
+#     torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
+#     print("Inicio de batallas sincronizadas:")
+#     inicio_total = time.perf_counter()
+#     resultados = await asyncio.gather(
+#         torneo_dragon_ball.combate_clasificacion([goku, vegeta], 2),
+#         torneo_dragon_ball.combate_clasificacion([broly, frezzer], 2),
+#         torneo_dragon_ball.combate_clasificacion([gohan, krilin], 2),
+#         torneo_dragon_ball.combate_clasificacion([trunks, picollo], 2)
+#     )
+#     fin_total = time.perf_counter()
+#     print("\nResultados:", resultados)
+#     print(f"Tiempo total de combates: {fin_total - inicio_total:.2f} segundos")
 
-asyncio.run(main())
+# asyncio.run(main())
+
+torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
+
+t1 = threading.Thread(target=torneo_dragon_ball.combate_clasificacion, args=([goku, vegeta], 2))
+t2 = threading.Thread(target=torneo_dragon_ball.combate_clasificacion, args=([broly, frezzer], 2))
+
+print("Inicio de batallas con hilos:")
+inicio_total = time.perf_counter()
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+fin_total = time.perf_counter()
+print(f"Tiempo total de combates con hilos: {fin_total - inicio_total:.2f} segundos")
+print("Combates de clasificación finalizados.")
+
 # contador = 0
 # while True:
 #     respuesta = input("\n¿Quieres iniciar el juego? (s/n): ")
