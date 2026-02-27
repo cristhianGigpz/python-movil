@@ -1,6 +1,7 @@
 import time
 import asyncio
 import threading
+import multiprocessing
 from personajes import Personaje
 from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol
 from torneo import Torneo
@@ -62,20 +63,36 @@ print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
 
 # asyncio.run(main())
 
+# torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
+
+# t1 = threading.Thread(target=torneo_dragon_ball.combate_clasificacion, args=([goku, vegeta], 2))
+# t2 = threading.Thread(target=torneo_dragon_ball.combate_clasificacion, args=([broly, frezzer], 2))
+
+# print("Inicio de batallas con hilos:")
+# inicio_total = time.perf_counter()
+# t1.start()
+# t2.start()
+
+# t1.join()
+# t2.join()
+# fin_total = time.perf_counter()
+# print(f"Tiempo total de combates con hilos: {fin_total - inicio_total:.2f} segundos")
+# print("Combates de clasificación finalizados.")
+
 torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
 
-t1 = threading.Thread(target=torneo_dragon_ball.combate_clasificacion, args=([goku, vegeta], 2))
-t2 = threading.Thread(target=torneo_dragon_ball.combate_clasificacion, args=([broly, frezzer], 2))
+p1 = multiprocessing.Process(target=torneo_dragon_ball.combate_clasificacion, args=([goku, vegeta], 2))
+p2 = multiprocessing.Process(target=torneo_dragon_ball.combate_clasificacion, args=([broly, frezzer], 2))
 
-print("Inicio de batallas con hilos:")
+print("Inicio de batallas con procesos:")
 inicio_total = time.perf_counter()
-t1.start()
-t2.start()
+p1.start()
+p2.start()
 
-t1.join()
-t2.join()
+p1.join()
+p2.join()
 fin_total = time.perf_counter()
-print(f"Tiempo total de combates con hilos: {fin_total - inicio_total:.2f} segundos")
+print(f"Tiempo total de combates con procesos: {fin_total - inicio_total:.2f} segundos")
 print("Combates de clasificación finalizados.")
 
 # contador = 0
