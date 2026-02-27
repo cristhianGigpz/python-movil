@@ -209,21 +209,35 @@ class Torneo:
     
     def combate_clasificacion(self, participantes: list, duracion: int):
         print(f"\nIniciando combate de clasificación entre ({participantes[0].nombre} y {participantes[1].nombre})")
-        inicio = time.perf_counter()
-        # print(participantes[0].atacar(participantes[1]))
-        # print(participantes[1].atacar(participantes[0]))
-        while participantes[0].resistencia > 0 and participantes[1].resistencia > 0:
-            print(participantes[0].atacar(participantes[1]))
-            print(participantes[1].atacar(participantes[0]))
-            sleep(duracion)  # Simula la duración del combate de clasificación
-        if participantes[0].resistencia > participantes[1].resistencia:
-            print(f"Ganador Combate Clasificación: {participantes[0].nombre} con resistencia restante {participantes[0].resistencia}")
-            print(f"Perdedor Combate Clasificación: {participantes[1].nombre} con resistencia restante {participantes[1].resistencia}")
-        elif participantes[1].resistencia > participantes[0].resistencia:
-            print(f"Ganador Combate Clasificación: {participantes[1].nombre} con resistencia restante {participantes[1].resistencia}")
-            print(f"Perdedor Combate Clasificación: {participantes[0].nombre} con resistencia restante {participantes[0].resistencia}")
-        else:
-            print("Empate en Combate de Clasificación: No hay ganador")
-        fin = time.perf_counter()
-        print(f"\nCombate de clasificación entre {participantes[0].nombre} y {participantes[1].nombre}, finalizado. Duración: {fin - inicio:.2f} segundos.")
-        return f"Resultados despues de {fin - inicio:.4f} segundos"
+        #inicio = time.perf_counter()
+        with TiempoBatallas():
+            # print(participantes[0].atacar(participantes[1]))
+            # print(participantes[1].atacar(participantes[0]))
+            while participantes[0].resistencia > 0 and participantes[1].resistencia > 0:
+                print(participantes[0].atacar(participantes[1]))
+                print(participantes[1].atacar(participantes[0]))
+                sleep(duracion)  # Simula la duración del combate de clasificación
+            with open("ganadores_batallas.txt", "a") as f:
+                if participantes[0].resistencia > participantes[1].resistencia:
+                    print(f"Ganador Combate Clasificación: {participantes[0].nombre} con resistencia restante {participantes[0].resistencia}")
+                    print(f"Perdedor Combate Clasificación: {participantes[1].nombre} con resistencia restante {participantes[1].resistencia}")
+                    f.write(f"Ganador Combate Clasificación: {participantes[0].nombre} con resistencia restante {participantes[0].resistencia}\n")
+                elif participantes[1].resistencia > participantes[0].resistencia:
+                    print(f"Ganador Combate Clasificación: {participantes[1].nombre} con resistencia restante {participantes[1].resistencia}")
+                    print(f"Perdedor Combate Clasificación: {participantes[0].nombre} con resistencia restante {participantes[0].resistencia}")
+                    f.write(f"Ganador Combate Clasificación: {participantes[1].nombre} con resistencia restante {participantes[1].resistencia}\n")
+                else:
+                    print("Empate en Combate de Clasificación: No hay ganador")
+                    f.write("Empate en Combate de Clasificación: No hay ganador\n")
+            #fin = time.perf_counter()
+            print(f"\nCombate de clasificación entre {participantes[0].nombre} y {participantes[1].nombre}, finalizado.")
+            #return f"Resultados despues de {fin - inicio:.4f} segundos"
+
+
+class TiempoBatallas:
+    def __enter__(self):
+        self.inicio = time.perf_counter()
+        return self
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.fin = time.perf_counter()
+        print(f"Tiempo total de las batallas: {self.fin - self.inicio:.2f} segundos")
