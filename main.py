@@ -79,21 +79,21 @@ print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
 # print(f"Tiempo total de combates con hilos: {fin_total - inicio_total:.2f} segundos")
 # print("Combates de clasificación finalizados.")
 
-torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
+# torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
 
-p1 = multiprocessing.Process(target=torneo_dragon_ball.combate_clasificacion, args=([goku, vegeta], 2))
-p2 = multiprocessing.Process(target=torneo_dragon_ball.combate_clasificacion, args=([broly, frezzer], 2))
+# p1 = multiprocessing.Process(target=torneo_dragon_ball.combate_clasificacion, args=([goku, vegeta], 2))
+# p2 = multiprocessing.Process(target=torneo_dragon_ball.combate_clasificacion, args=([broly, frezzer], 2))
 
-print("Inicio de batallas con procesos:")
-inicio_total = time.perf_counter()
-p1.start()
-p2.start()
+# print("Inicio de batallas con procesos:")
+# inicio_total = time.perf_counter()
+# p1.start()
+# p2.start()
 
-p1.join()
-p2.join()
-fin_total = time.perf_counter()
-print(f"Tiempo total de combates con procesos: {fin_total - inicio_total:.2f} segundos")
-print("Combates de clasificación finalizados.")
+# p1.join()
+# p2.join()
+# fin_total = time.perf_counter()
+# print(f"Tiempo total de combates con procesos: {fin_total - inicio_total:.2f} segundos")
+# print("Combates de clasificación finalizados.")
 
 # contador = 0
 # while True:

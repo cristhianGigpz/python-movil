@@ -30,8 +30,16 @@ class SaiyajinProtocol(Protocol):
         ...
     def atacar(self) -> str:
         ...
+class MetaSaiyajin(type):
+    def __new__(cls, name, bases, attrs):
+        if 'transformarse_en_super_saiyajin' not in attrs:
+            raise TypeError("La clase debe tener un método 'transformarse_en_super_saiyajin'")
+        if 'contador' not in attrs:
+            raise TypeError("La clase debe tener un atributo de clase 'contador'")
+        return super().__new__(cls, name, bases, attrs)
 
-class Saiyajin(Personaje):
+
+class Saiyajin(Personaje, metaclass=MetaSaiyajin):
     contador = 0
     def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, cola = True):
         super().__init__(nombre, nivel_fuerza, talla, planeta_origen)
