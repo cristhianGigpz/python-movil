@@ -2,6 +2,10 @@ import time
 import asyncio
 import threading
 import multiprocessing
+
+import pygame
+import constantes
+
 from personajes import Personaje
 from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol
 from torneo import Torneo
@@ -43,8 +47,8 @@ napa = Saiyajin("Napa", 7000, 1.90, "Planeta Vegeta", cola=True)
 raditz = Saiyajin("Raditz", 6000, 1.85, "Planeta Vegeta", cola=True)
 frezzer = Guerrero("Frezzer", 9900, 1.80, "Planeta Freezer")
 
-print(bulma.despedirse("¡Hasta luego!"))
-print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
+#print(bulma.despedirse("¡Hasta luego!"))
+#print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
 
 #print(krilin.atacar())
 # async def main():
@@ -142,3 +146,19 @@ print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
 
 #     else:
 #         print("Respuesta no válida. Por favor, ingresa 's' para sí o 'n' para no.")
+
+pygame.init()
+screen = pygame.display.set_mode((constantes.ANCHO_VENTANA, constantes.ALTO_VENTANA))
+pygame.display.set_caption("Torneo de Dragon Ball")
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill(constantes.BG_COLOR)
+    ##########################
+    pygame.display.flip()
+
+pygame.quit()
