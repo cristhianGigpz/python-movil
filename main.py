@@ -11,7 +11,7 @@ from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol
 from torneo import Torneo
 from exceptions import ListadoNoEsListaException, ListadoVacioException
 
-goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False)
+goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300)
 vegeta = Saiyajin("Vegeta", 8500, 1.65, "Planeta Vegeta", cola=True)
 krilin = Guerrero("Krilin", 3000, 1.50, "Tierra")
 picollo = Guerrero("Piccolo", 4000, 2.00, "Planeta Namek")
@@ -150,15 +150,21 @@ frezzer = Guerrero("Frezzer", 9900, 1.80, "Planeta Freezer")
 pygame.init()
 screen = pygame.display.set_mode((constantes.ANCHO_VENTANA, constantes.ALTO_VENTANA))
 pygame.display.set_caption("Torneo de Dragon Ball")
+reloj = pygame.time.Clock()
 
 running = True
 while running:
+    reloj.tick(constantes.FPS)
+    screen.fill(constantes.BG_COLOR)
+    
+    goku.dibujar(screen)
+    
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill(constantes.BG_COLOR)
-    ##########################
+    
     pygame.display.flip()
 
 pygame.quit()
