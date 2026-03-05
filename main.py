@@ -152,10 +152,30 @@ screen = pygame.display.set_mode((constantes.ANCHO_VENTANA, constantes.ALTO_VENT
 pygame.display.set_caption("Torneo de Dragon Ball")
 reloj = pygame.time.Clock()
 
+#definir las variables de movimiento del jugador
+mover_arriba = False
+mover_abajo = False
+mover_izquierda = False
+mover_derecha = False
+
 running = True
 while running:
     reloj.tick(constantes.FPS)
     screen.fill(constantes.BG_COLOR)
+
+    delta_x = 0
+    delta_y = 0
+
+    if mover_derecha:
+        delta_x += constantes.VELOCIDAD_PERSONAJE
+    if mover_izquierda:
+        delta_x -= constantes.VELOCIDAD_PERSONAJE
+    if mover_arriba:
+        delta_y -= constantes.VELOCIDAD_PERSONAJE
+    if mover_abajo:
+        delta_y += constantes.VELOCIDAD_PERSONAJE
+
+    goku.mover(delta_x, delta_y)
     
     goku.dibujar(screen)
     
@@ -163,8 +183,27 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                mover_derecha = True
+            elif event.key == pygame.K_LEFT:
+                mover_izquierda = True
+            elif event.key == pygame.K_UP:
+                mover_arriba = True
+            elif event.key == pygame.K_DOWN:
+                mover_abajo = True
 
-    
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_RIGHT:
+                mover_derecha = False
+            elif event.key == pygame.K_LEFT:
+                mover_izquierda = False
+            elif event.key == pygame.K_UP:
+                mover_arriba = False
+            elif event.key == pygame.K_DOWN:
+                mover_abajo = False
+
     pygame.display.flip()
 
 pygame.quit()

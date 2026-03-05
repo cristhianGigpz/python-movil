@@ -21,9 +21,16 @@ class Personaje:
         self.shape = pygame.Rect(self.x, self.y, constantes.ANCHO_PERSONAJE, constantes.ALTO_PERSONAJE)
         self.shape.center = (self.x, self.y)
     
-    def dibujar(self, screen):
-        pygame.draw.rect(screen, "blue", self.shape)
-        #pygame.draw.circle(screen, "red", (self.x, self.y), 40)
+    def dibujar(self, screen, forma = "cuadrado"):
+        if forma == "cuadrado":
+            pygame.draw.rect(screen, "blue", self.shape)
+        elif forma == "circulo":
+            pygame.draw.circle(screen, "red", (self.x, self.y), 20)
+    
+    def mover(self, dx, dy):
+        self.x += dx
+        self.y += dy
+        self.shape.center = (self.x, self.y)
     
     def saludar(self):
         return f"Hola, soy {self.nombre}"
