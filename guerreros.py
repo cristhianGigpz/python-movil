@@ -41,8 +41,8 @@ class MetaSaiyajin(type):
 
 class Saiyajin(Personaje, metaclass=MetaSaiyajin):
     contador = 0
-    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, cola = True, x=0, y=0):
-        super().__init__(nombre, nivel_fuerza, talla, planeta_origen, x=x, y=y)
+    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, cola = True, x=0, y=0, imagen=None):
+        super().__init__(nombre, nivel_fuerza, talla, planeta_origen, x=x, y=y, imagen=imagen)
         self.cola = cola
         Saiyajin.contador += 1
     
@@ -75,8 +75,8 @@ def multiplicar_ataque(veces):
     return decorador
 
 class Guerrero(Personaje, GuerreroInterface):
-    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, x=0, y=0):
-        super().__init__(nombre, nivel_fuerza, talla, planeta_origen, x=x, y=y)
+    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, x=0, y=0, imagen=None):
+        super().__init__(nombre, nivel_fuerza, talla, planeta_origen, x=x, y=y, imagen=imagen)
     
     def saludar(self):
         return f"Hola, soy {self.nombre} y soy un Guerrero"

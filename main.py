@@ -11,16 +11,16 @@ from guerreros import Saiyajin, Guerrero, GuerreroProtocol, SaiyajinProtocol
 from torneo import Torneo
 from exceptions import ListadoNoEsListaException, ListadoVacioException
 
-goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300)
-vegeta = Saiyajin("Vegeta", 8500, 1.65, "Planeta Vegeta", cola=True)
-krilin = Guerrero("Krilin", 3000, 1.50, "Tierra")
-picollo = Guerrero("Piccolo", 4000, 2.00, "Planeta Namek")
-yancha = Guerrero("Yamcha", 2500, 1.80, "Tierra")
-tenshinhan = Guerrero("Tenshinhan", 3200, 1.85, "Tierra")
-chaozu = Guerrero("Chaozu", 2800, 1.40, "Tierra")
-yajirobe = Guerrero("Yajirobe", 1500, 1.70, "Tierra")
+# goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300)
+# vegeta = Saiyajin("Vegeta", 8500, 1.65, "Planeta Vegeta", cola=True)
+# krilin = Guerrero("Krilin", 3000, 1.50, "Tierra")
+# picollo = Guerrero("Piccolo", 4000, 2.00, "Planeta Namek")
+# yancha = Guerrero("Yamcha", 2500, 1.80, "Tierra")
+# tenshinhan = Guerrero("Tenshinhan", 3200, 1.85, "Tierra")
+# chaozu = Guerrero("Chaozu", 2800, 1.40, "Tierra")
+# yajirobe = Guerrero("Yajirobe", 1500, 1.70, "Tierra")
 
-bulma = Personaje("Bulma", 500, 1.60, "Tierra")
+# bulma = Personaje("Bulma", 500, 1.60, "Tierra")
 
 # print(goku.saludar())
 # print(goku.atacar())
@@ -151,6 +151,15 @@ pygame.init()
 screen = pygame.display.set_mode((constantes.ANCHO_VENTANA, constantes.ALTO_VENTANA))
 pygame.display.set_caption("Torneo de Dragon Ball")
 reloj = pygame.time.Clock()
+
+def escalar_imagen(imagen, escala):
+    ancho_nuevo = int(imagen.get_width() * escala)
+    alto_nuevo = int(imagen.get_height() * escala)
+    return pygame.transform.scale(imagen, (ancho_nuevo, alto_nuevo))
+
+imagen_goku = pygame.image.load("assets/characters/personaje_0.png")
+imagen_goku = escalar_imagen(imagen_goku, constantes.SCALA_IMAGEN)
+goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, imagen=imagen_goku)
 
 #definir las variables de movimiento del jugador
 mover_arriba = False

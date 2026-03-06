@@ -10,7 +10,9 @@ def agregar_despedida(clss):
 
 @agregar_despedida
 class Personaje:
-    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, resistencia=20000, x=0, y=0):
+    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, resistencia=20000, x=0, y=0, imagen=None):
+        self.imagen = imagen
+        self.flip = False
         self.nombre = nombre
         self.__nivel_fuerza = nivel_fuerza
         self.talla = talla
@@ -22,15 +24,22 @@ class Personaje:
         self.shape.center = (self.x, self.y)
     
     def dibujar(self, screen, forma = "cuadrado"):
-        if forma == "cuadrado":
-            pygame.draw.rect(screen, "blue", self.shape)
-        elif forma == "circulo":
-            pygame.draw.circle(screen, "red", (self.x, self.y), 20)
+        imagen_flip = pygame.transform.flip(self.imagen, self.flip, False)
+        screen.blit(imagen_flip, self.shape)
+        # if forma == "cuadrado":
+        #pygame.draw.rect(screen, "blue", self.shape)
+        # elif forma == "circulo":
+        #     pygame.draw.circle(screen, "red", (self.x, self.y), 20)
     
     def mover(self, dx, dy):
-        self.x += dx
-        self.y += dy
-        self.shape.center = (self.x, self.y)
+        if dx < 0:
+            self.flip = True
+        elif dx > 0:
+            self.flip = False
+
+        self.shape.x += dx
+        self.shape.y += dy
+        #self.shape.center = (self.x, self.y)
     
     def saludar(self):
         return f"Hola, soy {self.nombre}"
