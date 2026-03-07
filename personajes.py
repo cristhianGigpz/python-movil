@@ -10,9 +10,10 @@ def agregar_despedida(clss):
 
 @agregar_despedida
 class Personaje:
-    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, resistencia=20000, x=0, y=0, imagen=None):
-        self.imagen = imagen
+    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, resistencia=20000, x=0, y=0, animaciones=None):
+        self.animaciones = animaciones
         self.flip = False
+
         self.nombre = nombre
         self.__nivel_fuerza = nivel_fuerza
         self.talla = talla
@@ -20,11 +21,26 @@ class Personaje:
         self.resistencia = resistencia
         self.x = x
         self.y = y
+
+        self.frame_index = 0
+        self.update_time = pygame.time.get_ticks()
+
+        self.image = animaciones[self.frame_index]
         self.shape = pygame.Rect(self.x, self.y, constantes.ANCHO_PERSONAJE, constantes.ALTO_PERSONAJE)
+        #self.shape = self.image.get_rect()
         self.shape.center = (self.x, self.y)
     
+    def update(self):
+        coodown_animation = 500
+        self.image = self.animaciones[self.frame_index]
+        if pygame.time.get_ticks() - self.update_time > coodown_animation:
+            self.update_time = pygame.time.get_ticks()
+            self.frame_index += 1
+        if self.frame_index >= len(self.animaciones):
+            self.frame_index = 0
+    
     def dibujar(self, screen, forma = "cuadrado"):
-        imagen_flip = pygame.transform.flip(self.imagen, self.flip, False)
+        imagen_flip = pygame.transform.flip(self.image, self.flip, False)
         screen.blit(imagen_flip, self.shape)
         # if forma == "cuadrado":
         #pygame.draw.rect(screen, "blue", self.shape)

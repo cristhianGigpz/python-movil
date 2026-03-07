@@ -32,20 +32,20 @@ from exceptions import ListadoNoEsListaException, ListadoVacioException
 
 #krilin.aumentar_fuerza()
 #krilin.elevar_ki()
-gohan = Saiyajin.crear_saiyajin_terricola("Gohan", 5000, 1.80, cola=True)
+#gohan = Saiyajin.crear_saiyajin_terricola("Gohan", 5000, 1.80, cola=True)
 #print(gohan.saludar())
 
-gothenks = Saiyajin.crear_saiyajin_terricola("Gotenks", 3900, 1.70, cola=False)
+#gothenks = Saiyajin.crear_saiyajin_terricola("Gotenks", 3900, 1.70, cola=False)
 #print(gothenks.saludar())
 
-trunks = Saiyajin.crear_saiyajin_terricola("Trunks", 4500, 1.75, cola=False)
+#trunks = Saiyajin.crear_saiyajin_terricola("Trunks", 4500, 1.75, cola=False)
 #print(trunks.saludar())
 
-rochi = Guerrero("Rochi", 2000, 1.60, "Tierra")
-broly = Saiyajin("Broly", 10000, 2.50, "Planeta Vegeta", cola=True)
-napa = Saiyajin("Napa", 7000, 1.90, "Planeta Vegeta", cola=True)
-raditz = Saiyajin("Raditz", 6000, 1.85, "Planeta Vegeta", cola=True)
-frezzer = Guerrero("Frezzer", 9900, 1.80, "Planeta Freezer")
+# rochi = Guerrero("Rochi", 2000, 1.60, "Tierra")
+# broly = Saiyajin("Broly", 10000, 2.50, "Planeta Vegeta", cola=True)
+# napa = Saiyajin("Napa", 7000, 1.90, "Planeta Vegeta", cola=True)
+# raditz = Saiyajin("Raditz", 6000, 1.85, "Planeta Vegeta", cola=True)
+# frezzer = Guerrero("Frezzer", 9900, 1.80, "Planeta Freezer")
 
 #print(bulma.despedirse("¡Hasta luego!"))
 #print(rochi.despedirse("¡Nos vemos en la próxima aventura!"))
@@ -157,9 +157,13 @@ def escalar_imagen(imagen, escala):
     alto_nuevo = int(imagen.get_height() * escala)
     return pygame.transform.scale(imagen, (ancho_nuevo, alto_nuevo))
 
-imagen_goku = pygame.image.load("assets/characters/personaje_0.png")
-imagen_goku = escalar_imagen(imagen_goku, constantes.SCALA_IMAGEN)
-goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, imagen=imagen_goku)
+animaciones = []
+for i in range(7):
+    imagen = pygame.image.load(f"assets/characters/p_{i}.png")
+    imagen_escalada = escalar_imagen(imagen, constantes.SCALA_IMAGEN)
+    animaciones.append(imagen_escalada)
+
+goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, animaciones=animaciones)
 
 #definir las variables de movimiento del jugador
 mover_arriba = False
@@ -185,6 +189,8 @@ while running:
         delta_y += constantes.VELOCIDAD_PERSONAJE
 
     goku.mover(delta_x, delta_y)
+
+    goku.update()
     
     goku.dibujar(screen)
     
