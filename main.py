@@ -158,8 +158,8 @@ def escalar_imagen(imagen, escala):
     return pygame.transform.scale(imagen, (ancho_nuevo, alto_nuevo))
 
 animaciones = []
-for i in range(7):
-    imagen = pygame.image.load(f"assets/characters/p_{i}.png")
+for i in range(21):
+    imagen = pygame.image.load(f"assets/characters/personaje_{i}.png")
     imagen_escalada = escalar_imagen(imagen, constantes.SCALA_IMAGEN)
     animaciones.append(imagen_escalada)
 
