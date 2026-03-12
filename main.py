@@ -158,18 +158,33 @@ def escalar_imagen(imagen, escala):
     return pygame.transform.scale(imagen, (ancho_nuevo, alto_nuevo))
 
 animaciones = []
-for i in range(21):
+animaciones_freezer = []
+
+for i in range(10, 18):
     imagen = pygame.image.load(f"assets/characters/personaje_{i}.png")
     imagen_escalada = escalar_imagen(imagen, constantes.SCALA_IMAGEN)
     animaciones.append(imagen_escalada)
 
+for i in range(26, 34):
+    imagen = pygame.image.load(f"assets/characters/personaje_{i}.png")
+    imagen_escalada = escalar_imagen(imagen, constantes.SCALA_IMAGEN)
+    animaciones_freezer.append(imagen_escalada)
+
+
 goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, animaciones=animaciones)
 
+freezer = Guerrero("Freezer", 9900, 1.80, "Planeta Freezer", x=500, y=300, animaciones=animaciones_freezer)
 #definir las variables de movimiento del jugador
 mover_arriba = False
 mover_abajo = False
 mover_izquierda = False
 mover_derecha = False
+
+mover_arriba_freezer = False
+mover_abajo_freezer = False
+mover_izquierda_freezer = False
+mover_derecha_freezer = False
+
 
 running = True
 while running:
@@ -179,6 +194,9 @@ while running:
     delta_x = 0
     delta_y = 0
 
+    delta_x_freezer = 0
+    delta_y_freezer = 0
+
     if mover_derecha:
         delta_x += constantes.VELOCIDAD_PERSONAJE
     if mover_izquierda:
@@ -187,12 +205,24 @@ while running:
         delta_y -= constantes.VELOCIDAD_PERSONAJE
     if mover_abajo:
         delta_y += constantes.VELOCIDAD_PERSONAJE
+    
+    if mover_derecha_freezer:
+        delta_x_freezer += constantes.VELOCIDAD_PERSONAJE
+    if mover_izquierda_freezer:
+        delta_x_freezer -= constantes.VELOCIDAD_PERSONAJE
+    if mover_arriba_freezer:
+        delta_y_freezer -= constantes.VELOCIDAD_PERSONAJE
+    if mover_abajo_freezer:
+        delta_y_freezer += constantes.VELOCIDAD_PERSONAJE
 
     goku.mover(delta_x, delta_y)
+    freezer.mover(delta_x_freezer, delta_y_freezer)
 
     goku.update()
+    freezer.update()
     
     goku.dibujar(screen)
+    freezer.dibujar(screen)
     
 
     for event in pygame.event.get():
@@ -209,6 +239,15 @@ while running:
             elif event.key == pygame.K_DOWN:
                 mover_abajo = True
 
+            if event.key == pygame.K_w:
+                mover_arriba_freezer = True
+            elif event.key == pygame.K_s:
+                mover_abajo_freezer = True
+            elif event.key == pygame.K_a:
+                mover_izquierda_freezer = True
+            elif event.key == pygame.K_d:
+                mover_derecha_freezer = True
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
                 mover_derecha = False
@@ -218,6 +257,15 @@ while running:
                 mover_arriba = False
             elif event.key == pygame.K_DOWN:
                 mover_abajo = False
+            
+            if event.key == pygame.K_w:
+                mover_arriba_freezer = False
+            elif event.key == pygame.K_s:
+                mover_abajo_freezer = False
+            elif event.key == pygame.K_a:
+                mover_izquierda_freezer = False
+            elif event.key == pygame.K_d:
+                mover_derecha_freezer = False
 
     pygame.display.flip()
 

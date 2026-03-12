@@ -26,8 +26,8 @@ class Personaje:
         self.update_time = pygame.time.get_ticks()
 
         self.image = animaciones[self.frame_index]
-        self.shape = pygame.Rect(self.x, self.y, constantes.ANCHO_PERSONAJE, constantes.ALTO_PERSONAJE)
-        #self.shape = self.image.get_rect()
+        #self.shape = pygame.Rect(self.x, self.y, constantes.ANCHO_PERSONAJE, constantes.ALTO_PERSONAJE)
+        self.shape = self.image.get_rect()
         self.shape.center = (self.x, self.y)
     
     def update(self):
