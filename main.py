@@ -158,14 +158,20 @@ def escalar_imagen(imagen, escala):
     return pygame.transform.scale(imagen, (ancho_nuevo, alto_nuevo))
 
 animaciones = []
+animaciones_ataque_goku = []
+
 animaciones_freezer = []
 
-for i in range(10, 18):
+for i in range(0, 18):
     imagen = pygame.image.load(f"assets/characters/personaje_{i}.png")
     imagen_escalada = escalar_imagen(imagen, constantes.SCALA_IMAGEN)
-    animaciones.append(imagen_escalada)
+    if i < 10:
+        animaciones.append(imagen_escalada)
+    else:
+        animaciones_ataque_goku.append(imagen_escalada)
 
-for i in range(26, 34):
+
+for i in range(21, 34):
     imagen = pygame.image.load(f"assets/characters/personaje_{i}.png")
     imagen_escalada = escalar_imagen(imagen, constantes.SCALA_IMAGEN)
     animaciones_freezer.append(imagen_escalada)
@@ -173,7 +179,7 @@ for i in range(26, 34):
 
 goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, animaciones=animaciones)
 
-freezer = Guerrero("Freezer", 9900, 1.80, "Planeta Freezer", x=500, y=300, animaciones=animaciones_freezer)
+freezer = Guerrero("Freezer", 9900, 1.80, "Planeta Freezer", x=500, y=300, animaciones=animaciones_freezer, flip=True)
 #definir las variables de movimiento del jugador
 mover_arriba = False
 mover_abajo = False
@@ -238,6 +244,8 @@ while running:
                 mover_arriba = True
             elif event.key == pygame.K_DOWN:
                 mover_abajo = True
+            if event.key == pygame.K_SPACE:
+                goku.atacar(freezer, animaciones_ataque_goku)
 
             if event.key == pygame.K_w:
                 mover_arriba_freezer = True
@@ -257,6 +265,9 @@ while running:
                 mover_arriba = False
             elif event.key == pygame.K_DOWN:
                 mover_abajo = False
+            if event.key == pygame.K_SPACE:
+                goku.animaciones = animaciones
+                goku.frame_index = 0
             
             if event.key == pygame.K_w:
                 mover_arriba_freezer = False

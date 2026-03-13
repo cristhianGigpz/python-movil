@@ -4,7 +4,7 @@ from personajes import Personaje
 
 class GuerreroInterface(ABC):
     @abstractmethod
-    def atacar(self, personaje: Personaje) -> str:
+    def atacar(self, personaje: Personaje, animaciones_ataque: list) -> str:
         pass
 
     @abstractmethod
@@ -41,7 +41,7 @@ class MetaSaiyajin(type):
 
 class Saiyajin(Personaje, metaclass=MetaSaiyajin):
     contador = 0
-    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, cola = True, x=0, y=0, animaciones=None):
+    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, cola = True, x=0, y=0, animaciones=None, flip=False):
         super().__init__(nombre, nivel_fuerza, talla, planeta_origen, x=x, y=y, animaciones=animaciones)
         self.cola = cola
         Saiyajin.contador += 1
@@ -58,8 +58,10 @@ class Saiyajin(Personaje, metaclass=MetaSaiyajin):
     def saludar(self):
         return f"Hola, soy {self.nombre} y soy un Saiyajin del planeta {self.planeta_origen}"
     
-    def atacar(self, personaje: Personaje):
+    def atacar(self, personaje: Personaje, animaciones_ataque: list):
         personaje.resistencia -= self.nivel_fuerza
+        self.animaciones = animaciones_ataque
+        self.frame_index = 0
         return f"{self.nombre} (saiyajin) está atacando con fuerza {self.nivel_fuerza}!"
     
     @classmethod
@@ -75,15 +77,17 @@ def multiplicar_ataque(veces):
     return decorador
 
 class Guerrero(Personaje, GuerreroInterface):
-    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, x=0, y=0, animaciones=None):
-        super().__init__(nombre, nivel_fuerza, talla, planeta_origen, x=x, y=y, animaciones=animaciones)
+    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, x=0, y=0, animaciones=None, flip=False):
+        super().__init__(nombre, nivel_fuerza, talla, planeta_origen, x=x, y=y, animaciones=animaciones, flip=flip)
     
     def saludar(self):
         return f"Hola, soy {self.nombre} y soy un Guerrero"
 
     #@multiplicar_ataque(3)
-    def atacar(self, personaje: Personaje):
+    def atacar(self, personaje: Personaje, animaciones_ataque: list):
         personaje.resistencia -= self.nivel_fuerza
+        self.animaciones = animaciones_ataque
+        self.frame_index = 0
         return f"{self.nombre} está atacando con fuerza {self.nivel_fuerza}!"
     
     def elevar_ki(self):

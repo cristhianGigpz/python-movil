@@ -10,9 +10,9 @@ def agregar_despedida(clss):
 
 @agregar_despedida
 class Personaje:
-    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, resistencia=20000, x=0, y=0, animaciones=None):
+    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, resistencia=20000, x=0, y=0, animaciones=None, flip=False):
         self.animaciones = animaciones
-        self.flip = False
+        self.flip = flip
 
         self.nombre = nombre
         self.__nivel_fuerza = nivel_fuerza
@@ -31,7 +31,7 @@ class Personaje:
         self.shape.center = (self.x, self.y)
     
     def update(self):
-        coodown_animation = 500
+        coodown_animation = 200
         self.image = self.animaciones[self.frame_index]
         if pygame.time.get_ticks() - self.update_time > coodown_animation:
             self.update_time = pygame.time.get_ticks()
