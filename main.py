@@ -1,3 +1,4 @@
+import os
 import time
 import asyncio
 import threading
@@ -144,37 +145,44 @@ from exceptions import ListadoNoEsListaException, ListadoVacioException
 
 #     else:
 #         print("Respuesta no válida. Por favor, ingresa 's' para sí o 'n' para no.")
+def escalar_imagen(imagen, escala):
+    ancho_nuevo = int(imagen.get_width() * escala)
+    alto_nuevo = int(imagen.get_height() * escala)
+    return pygame.transform.scale(imagen, (ancho_nuevo, alto_nuevo))
+
+def contar_elementos(directorio):
+    return len(os.listdir(directorio))
+#print(f"Cantidad de elementos: {contar_elementos('assets/characters/personajes/freezer')}")
+def nombres_carpetas(directorio):
+    return os.listdir(directorio)
+#print(f"Nombres de las carpetas: {nombres_carpetas('assets/characters/personajes')}")
 
 pygame.init()
 screen = pygame.display.set_mode((constantes.ANCHO_VENTANA, constantes.ALTO_VENTANA))
 pygame.display.set_caption("Torneo de Dragon Ball")
 reloj = pygame.time.Clock()
 
-def escalar_imagen(imagen, escala):
-    ancho_nuevo = int(imagen.get_width() * escala)
-    alto_nuevo = int(imagen.get_height() * escala)
-    return pygame.transform.scale(imagen, (ancho_nuevo, alto_nuevo))
 
+directorio_personajes = "assets/characters/personajes"
+tipo_personajes = nombres_carpetas(directorio_personajes)
 animaciones = []
 #animaciones_ataque_goku = []
 
-animaciones_freezer = []
-
-for i in range(0, 18):
-    imagen = pygame.image.load(f"assets/characters/personajes/goku/personaje_{i}.png")
-    imagen_escalada = escalar_imagen(imagen, constantes.SCALA_IMAGEN)
-    animaciones.append(imagen_escalada)
-    
-
-for i in range(21, 34):
-    imagen = pygame.image.load(f"assets/characters/personajes/freezer/personaje_{i}.png")
-    imagen_escalada = escalar_imagen(imagen, constantes.SCALA_IMAGEN)
-    animaciones_freezer.append(imagen_escalada)
+for personaje in tipo_personajes:
+    lista_temp = []
+    ruta_temp = f"{directorio_personajes}/{personaje}"
+    num_animaciones = contar_elementos(ruta_temp)
+    print(f"Cantidad de animaciones para {personaje}: {num_animaciones}")
+    for i in range(num_animaciones):
+        imagen = pygame.image.load(f"{ruta_temp}/personaje_{i}.png").convert_alpha()
+        imagen_escalada = escalar_imagen(imagen, 0.5)
+        lista_temp.append(imagen_escalada)
+    animaciones.append(lista_temp)
 
 
-goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, animaciones=animaciones)
+goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, animaciones=animaciones[0])
 
-freezer = Guerrero("Freezer", 9900, 1.80, "Planeta Freezer", x=200, y=300, animaciones=animaciones_freezer, flip=True)
+freezer = Guerrero("Freezer", 9900, 1.80, "Planeta Freezer", x=200, y=300, animaciones=animaciones[1], flip=True)
 
 #definir las variables de movimiento del jugador
 
