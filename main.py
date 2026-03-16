@@ -163,7 +163,7 @@ animaciones_ataque_goku = []
 animaciones_freezer = []
 
 for i in range(0, 18):
-    imagen = pygame.image.load(f"assets/characters/personaje_{i}.png")
+    imagen = pygame.image.load(f"assets/characters/personajes/goku/personaje_{i}.png")
     imagen_escalada = escalar_imagen(imagen, constantes.SCALA_IMAGEN)
     if i < 10:
         animaciones.append(imagen_escalada)
@@ -172,7 +172,7 @@ for i in range(0, 18):
 
 
 for i in range(21, 34):
-    imagen = pygame.image.load(f"assets/characters/personaje_{i}.png")
+    imagen = pygame.image.load(f"assets/characters/personajes/freezer/personaje_{i}.png")
     imagen_escalada = escalar_imagen(imagen, constantes.SCALA_IMAGEN)
     animaciones_freezer.append(imagen_escalada)
 
