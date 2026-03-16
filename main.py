@@ -64,11 +64,10 @@ from exceptions import ListadoNoEsListaException, ListadoVacioException
 #     fin_total = time.perf_counter()
 #     print("\nResultados:", resultados)
 #     print(f"Tiempo total de combates: {fin_total - inicio_total:.2f} segundos")
-
 # asyncio.run(main())
 
-# torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
 
+# torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
 # t1 = threading.Thread(target=torneo_dragon_ball.combate_clasificacion, args=([goku, vegeta], 2))
 # t2 = threading.Thread(target=torneo_dragon_ball.combate_clasificacion, args=([broly, frezzer], 2))
 
@@ -84,7 +83,6 @@ from exceptions import ListadoNoEsListaException, ListadoVacioException
 # print("Combates de clasificación finalizados.")
 
 # torneo_dragon_ball = Torneo("¡Bienvenidos a las clasificatorias Torneo de Dragon Ball!", tipo=True)
-
 # p1 = multiprocessing.Process(target=torneo_dragon_ball.combate_clasificacion, args=([goku, vegeta], 2))
 # p2 = multiprocessing.Process(target=torneo_dragon_ball.combate_clasificacion, args=([broly, frezzer], 2))
 
@@ -158,18 +156,15 @@ def escalar_imagen(imagen, escala):
     return pygame.transform.scale(imagen, (ancho_nuevo, alto_nuevo))
 
 animaciones = []
-animaciones_ataque_goku = []
+#animaciones_ataque_goku = []
 
 animaciones_freezer = []
 
 for i in range(0, 18):
     imagen = pygame.image.load(f"assets/characters/personajes/goku/personaje_{i}.png")
     imagen_escalada = escalar_imagen(imagen, constantes.SCALA_IMAGEN)
-    if i < 10:
-        animaciones.append(imagen_escalada)
-    else:
-        animaciones_ataque_goku.append(imagen_escalada)
-
+    animaciones.append(imagen_escalada)
+    
 
 for i in range(21, 34):
     imagen = pygame.image.load(f"assets/characters/personajes/freezer/personaje_{i}.png")
@@ -179,17 +174,9 @@ for i in range(21, 34):
 
 goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, animaciones=animaciones)
 
-freezer = Guerrero("Freezer", 9900, 1.80, "Planeta Freezer", x=500, y=300, animaciones=animaciones_freezer, flip=True)
-#definir las variables de movimiento del jugador
-mover_arriba = False
-mover_abajo = False
-mover_izquierda = False
-mover_derecha = False
+freezer = Guerrero("Freezer", 9900, 1.80, "Planeta Freezer", x=200, y=300, animaciones=animaciones_freezer, flip=True)
 
-mover_arriba_freezer = False
-mover_abajo_freezer = False
-mover_izquierda_freezer = False
-mover_derecha_freezer = False
+#definir las variables de movimiento del jugador
 
 
 running = True
@@ -197,32 +184,10 @@ while running:
     reloj.tick(constantes.FPS)
     screen.fill(constantes.BG_COLOR)
 
-    delta_x = 0
-    delta_y = 0
-
-    delta_x_freezer = 0
-    delta_y_freezer = 0
-
-    if mover_derecha:
-        delta_x += constantes.VELOCIDAD_PERSONAJE
-    if mover_izquierda:
-        delta_x -= constantes.VELOCIDAD_PERSONAJE
-    if mover_arriba:
-        delta_y -= constantes.VELOCIDAD_PERSONAJE
-    if mover_abajo:
-        delta_y += constantes.VELOCIDAD_PERSONAJE
     
-    if mover_derecha_freezer:
-        delta_x_freezer += constantes.VELOCIDAD_PERSONAJE
-    if mover_izquierda_freezer:
-        delta_x_freezer -= constantes.VELOCIDAD_PERSONAJE
-    if mover_arriba_freezer:
-        delta_y_freezer -= constantes.VELOCIDAD_PERSONAJE
-    if mover_abajo_freezer:
-        delta_y_freezer += constantes.VELOCIDAD_PERSONAJE
 
-    goku.mover(delta_x, delta_y)
-    freezer.mover(delta_x_freezer, delta_y_freezer)
+    #goku.mover(delta_x, delta_y)
+    #freezer.mover(delta_x_freezer, delta_y_freezer)
 
     goku.update()
     freezer.update()
@@ -235,48 +200,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                mover_derecha = True
-            elif event.key == pygame.K_LEFT:
-                mover_izquierda = True
-            elif event.key == pygame.K_UP:
-                mover_arriba = True
-            elif event.key == pygame.K_DOWN:
-                mover_abajo = True
-            if event.key == pygame.K_SPACE:
-                goku.atacar(freezer, animaciones_ataque_goku)
-
-            if event.key == pygame.K_w:
-                mover_arriba_freezer = True
-            elif event.key == pygame.K_s:
-                mover_abajo_freezer = True
-            elif event.key == pygame.K_a:
-                mover_izquierda_freezer = True
-            elif event.key == pygame.K_d:
-                mover_derecha_freezer = True
-
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_RIGHT:
-                mover_derecha = False
-            elif event.key == pygame.K_LEFT:
-                mover_izquierda = False
-            elif event.key == pygame.K_UP:
-                mover_arriba = False
-            elif event.key == pygame.K_DOWN:
-                mover_abajo = False
-            if event.key == pygame.K_SPACE:
-                goku.animaciones = animaciones
-                goku.frame_index = 0
-            
-            if event.key == pygame.K_w:
-                mover_arriba_freezer = False
-            elif event.key == pygame.K_s:
-                mover_abajo_freezer = False
-            elif event.key == pygame.K_a:
-                mover_izquierda_freezer = False
-            elif event.key == pygame.K_d:
-                mover_derecha_freezer = False
+        
 
     pygame.display.flip()
 
