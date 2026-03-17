@@ -180,9 +180,9 @@ for personaje in tipo_personajes:
     animaciones.append(lista_temp)
 
 
-goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, animaciones=animaciones[0])
+goku = Saiyajin("Goku", 900, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, animaciones=animaciones[0][:len(animaciones[0]) - 3])
 
-freezer = Guerrero("Freezer", 9900, 1.80, "Planeta Freezer", x=200, y=300, animaciones=animaciones[1], flip=True)
+freezer = Guerrero("Freezer", 990, 1.80, "Planeta Freezer", x=200, y=300, animaciones=animaciones[1][:len(animaciones[1]) - 3], flip=True)
 
 #definir las variables de movimiento del jugador
 
@@ -196,12 +196,21 @@ while running:
 
     #goku.mover(delta_x, delta_y)
     #freezer.mover(delta_x_freezer, delta_y_freezer)
+    freezer.atacar(goku, animaciones[0][-3:])
+    goku.atacar(freezer, animaciones[1][-3:])
 
     goku.update()
     freezer.update()
     
     goku.dibujar(screen)
     freezer.dibujar(screen)
+
+    if goku.resistencia <= 0 or freezer.resistencia <= 0:
+        print("¡Fin del combate!")
+        time.sleep(2)
+        running = False
+
+    
     
 
     for event in pygame.event.get():

@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Protocol
 from personajes import Personaje
+from time import sleep
 
 class GuerreroInterface(ABC):
     @abstractmethod
@@ -58,11 +59,17 @@ class Saiyajin(Personaje, metaclass=MetaSaiyajin):
     def saludar(self):
         return f"Hola, soy {self.nombre} y soy un Saiyajin del planeta {self.planeta_origen}"
     
-    def atacar(self, personaje: Personaje, animaciones_ataque: list):
+    def atacar(self, personaje: Personaje, animaciones_derrota: list):
         personaje.resistencia -= self.nivel_fuerza
-        self.animaciones = animaciones_ataque
-        self.frame_index = 0
-        return f"{self.nombre} (saiyajin) está atacando con fuerza {self.nivel_fuerza}!"
+        sleep(0.1)  # Simula el tiempo que tarda en realizar el ataque
+        if personaje.resistencia <= 0:
+            personaje.resistencia = 0
+            personaje.animaciones = animaciones_derrota
+            personaje.frame_index = 0
+            self.animaciones = self.animaciones[:10]
+            self.frame_index = 0
+            print(f"{personaje.nombre} ha sido derrotado por {self.nombre}!")
+        return personaje.resistencia
     
     @classmethod
     def cantidad_saiyajines(cls):
@@ -84,11 +91,17 @@ class Guerrero(Personaje, GuerreroInterface):
         return f"Hola, soy {self.nombre} y soy un Guerrero"
 
     #@multiplicar_ataque(3)
-    def atacar(self, personaje: Personaje, animaciones_ataque: list):
+    def atacar(self, personaje: Personaje, animaciones_derrota: list):
         personaje.resistencia -= self.nivel_fuerza
-        self.animaciones = animaciones_ataque
-        self.frame_index = 0
-        return f"{self.nombre} está atacando con fuerza {self.nivel_fuerza}!"
+        sleep(0.1)  # Simula el tiempo que tarda en realizar el ataque
+        if personaje.resistencia <= 0:
+            personaje.resistencia = 0
+            personaje.animaciones = animaciones_derrota
+            personaje.frame_index = 0
+            self.animaciones = self.animaciones[:10]
+            self.frame_index = 0
+            print(f"{personaje.nombre} ha sido derrotado por {self.nombre}!")
+        return personaje.resistencia
     
     def elevar_ki(self):
         print(f"{self.nombre} ha elevado su ki!")

@@ -10,7 +10,7 @@ def agregar_despedida(clss):
 
 @agregar_despedida
 class Personaje:
-    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, resistencia=20000, x=0, y=0, animaciones=None, flip=False):
+    def __init__(self, nombre, nivel_fuerza, talla, planeta_origen, resistencia=100000, x=0, y=0, animaciones=None, flip=False):
         self.animaciones = animaciones
         self.flip = flip
 
