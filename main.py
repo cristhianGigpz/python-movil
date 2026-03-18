@@ -199,9 +199,8 @@ while running:
     px_personaje2 = random.randint(-5, 5)
     py_personaje2 = random.randint(-5, 5)
     freezer.mover(px_personaje2, py_personaje2)
-
-    #goku.mover(delta_x, delta_y)
-    #freezer.mover(delta_x_freezer, delta_y_freezer)
+    
+    
     freezer.atacar(goku, animaciones[0][-3:])
     goku.atacar(freezer, animaciones[1][-3:])
 
