@@ -3,7 +3,7 @@ import time
 import asyncio
 import threading
 import multiprocessing
-
+import random
 import pygame
 import constantes
 
@@ -180,9 +180,9 @@ for personaje in tipo_personajes:
     animaciones.append(lista_temp)
 
 
-goku = Saiyajin("Goku", 900, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, animaciones=animaciones[0][:len(animaciones[0]) - 3])
+goku = Saiyajin("Goku", 990, 1.75, "Planeta Vegeta", cola=False, x=370, y=300, animaciones=animaciones[0][:len(animaciones[0]) - 3])
 
-freezer = Guerrero("Freezer", 990, 1.80, "Planeta Freezer", x=200, y=300, animaciones=animaciones[1][:len(animaciones[1]) - 3], flip=True)
+freezer = Guerrero("Freezer", 900, 1.80, "Planeta Freezer", x=420, y=300, animaciones=animaciones[1][:len(animaciones[1]) - 3], flip=True)
 
 #definir las variables de movimiento del jugador
 
@@ -192,7 +192,13 @@ while running:
     reloj.tick(constantes.FPS)
     screen.fill(constantes.BG_COLOR)
 
-    
+    px_personaje1 = random.randint(-5, 5)
+    py_personaje1 = random.randint(-5, 5)
+    goku.mover(px_personaje1, py_personaje1)
+
+    px_personaje2 = random.randint(-5, 5)
+    py_personaje2 = random.randint(-5, 5)
+    freezer.mover(px_personaje2, py_personaje2)
 
     #goku.mover(delta_x, delta_y)
     #freezer.mover(delta_x_freezer, delta_y_freezer)
