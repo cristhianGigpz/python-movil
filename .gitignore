@@ -6,3 +6,4 @@ __mypycache__/
 .vscode/
 .env
 .env.*
+assets/*
