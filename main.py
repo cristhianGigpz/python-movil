@@ -185,15 +185,15 @@ goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, 
 
 freezer = Guerrero("Freezer", 9900, 1.80, "Planeta Freezer", x=500, y=300, animaciones=animaciones[1][:len(animaciones[1]) - 7], flip=True)
 #definir las variables de movimiento del jugador
-mover_arriba = False
-mover_abajo = False
-mover_izquierda = False
-mover_derecha = False
+mover_arriba_p1 = False
+mover_abajo_p1 = False
+mover_izquierda_p1 = False
+mover_derecha_p1 = False
 
-mover_arriba_freezer = False
-mover_abajo_freezer = False
-mover_izquierda_freezer = False
-mover_derecha_freezer = False
+mover_arriba_p2 = False
+mover_abajo_p2 = False
+mover_izquierda_p2 = False
+mover_derecha_p2 = False
 
 
 running = True
@@ -201,32 +201,32 @@ while running:
     reloj.tick(constantes.FPS)
     screen.fill(constantes.BG_COLOR)
 
-    delta_x = 0
-    delta_y = 0
+    delta_x_p1 = 0
+    delta_y_p1 = 0
 
-    delta_x_freezer = 0
-    delta_y_freezer = 0
+    delta_x_p2 = 0
+    delta_y_p2 = 0
 
-    if mover_derecha:
-        delta_x += constantes.VELOCIDAD_PERSONAJE
-    if mover_izquierda:
-        delta_x -= constantes.VELOCIDAD_PERSONAJE
-    if mover_arriba:
-        delta_y -= constantes.VELOCIDAD_PERSONAJE
-    if mover_abajo:
-        delta_y += constantes.VELOCIDAD_PERSONAJE
+    if mover_derecha_p1:
+        delta_x_p1 += constantes.VELOCIDAD_PERSONAJE
+    if mover_izquierda_p1:
+        delta_x_p1 -= constantes.VELOCIDAD_PERSONAJE
+    if mover_arriba_p1:
+        delta_y_p1 -= constantes.VELOCIDAD_PERSONAJE
+    if mover_abajo_p1:
+        delta_y_p1 += constantes.VELOCIDAD_PERSONAJE
     
-    if mover_derecha_freezer:
-        delta_x_freezer += constantes.VELOCIDAD_PERSONAJE
-    if mover_izquierda_freezer:
-        delta_x_freezer -= constantes.VELOCIDAD_PERSONAJE
-    if mover_arriba_freezer:
-        delta_y_freezer -= constantes.VELOCIDAD_PERSONAJE
-    if mover_abajo_freezer:
-        delta_y_freezer += constantes.VELOCIDAD_PERSONAJE
+    if mover_derecha_p2:
+        delta_x_p2 += constantes.VELOCIDAD_PERSONAJE
+    if mover_izquierda_p2:
+        delta_x_p2 -= constantes.VELOCIDAD_PERSONAJE
+    if mover_arriba_p2:
+        delta_y_p2 -= constantes.VELOCIDAD_PERSONAJE
+    if mover_abajo_p2:
+        delta_y_p2 += constantes.VELOCIDAD_PERSONAJE
 
-    goku.mover(delta_x, delta_y)
-    freezer.mover(delta_x_freezer, delta_y_freezer)
+    goku.mover(delta_x_p1, delta_y_p1)
+    freezer.mover(delta_x_p2, delta_y_p2)
 
     goku.update()
     freezer.update()
@@ -240,47 +240,60 @@ while running:
             running = False
         
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                mover_derecha = True
-            elif event.key == pygame.K_LEFT:
-                mover_izquierda = True
-            elif event.key == pygame.K_UP:
-                mover_arriba = True
-            elif event.key == pygame.K_DOWN:
-                mover_abajo = True
+            # Controles para el jugador 1
+            if event.key == pygame.K_w:
+                mover_arriba_p1 = True
+            elif event.key == pygame.K_s:
+                mover_abajo_p1 = True
+            elif event.key == pygame.K_a:
+                mover_izquierda_p1 = True
+            elif event.key == pygame.K_d:
+                mover_derecha_p1 = True
             if event.key == pygame.K_SPACE:
                 goku.atacar(freezer, animaciones[0][8:len(animaciones[0]) - 3])
 
-            if event.key == pygame.K_w:
-                mover_arriba_freezer = True
-            elif event.key == pygame.K_s:
-                mover_abajo_freezer = True
-            elif event.key == pygame.K_a:
-                mover_izquierda_freezer = True
-            elif event.key == pygame.K_d:
-                mover_derecha_freezer = True
+            # Controles para el jugador 2
+            if event.key == pygame.K_RIGHT:
+                mover_derecha_p2 = True
+            elif event.key == pygame.K_LEFT:
+                mover_izquierda_p2 = True
+            elif event.key == pygame.K_UP:
+                mover_arriba_p2 = True
+            elif event.key == pygame.K_DOWN:
+                mover_abajo_p2 = True
+            if event.key == pygame.K_KP_ENTER:
+                freezer.atacar(goku, animaciones[1][8:len(animaciones[1]) - 3])        
+            
+            
 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_RIGHT:
-                mover_derecha = False
-            elif event.key == pygame.K_LEFT:
-                mover_izquierda = False
-            elif event.key == pygame.K_UP:
-                mover_arriba = False
-            elif event.key == pygame.K_DOWN:
-                mover_abajo = False
+            # Controles para el jugador 1
+            if event.key == pygame.K_w:
+                mover_arriba_p1 = False
+            elif event.key == pygame.K_s:
+                mover_abajo_p1 = False
+            elif event.key == pygame.K_a:
+                mover_izquierda_p1 = False
+            elif event.key == pygame.K_d:
+                mover_derecha_p1 = False
             if event.key == pygame.K_SPACE:
                 goku.animaciones = animaciones[0][:len(animaciones[0]) - 7]
                 goku.frame_index = 0
+
+            # Controles para el jugador 2
+            if event.key == pygame.K_RIGHT:
+                mover_derecha_p2 = False
+            elif event.key == pygame.K_LEFT:
+                mover_izquierda_p2 = False
+            elif event.key == pygame.K_UP:
+                mover_arriba_p2 = False
+            elif event.key == pygame.K_DOWN:
+                mover_abajo_p2 = False
+            if event.key == pygame.K_KP_ENTER:
+                freezer.animaciones = animaciones[1][:len(animaciones[1]) - 7]
+                freezer.frame_index = 0
+        
             
-            if event.key == pygame.K_w:
-                mover_arriba_freezer = False
-            elif event.key == pygame.K_s:
-                mover_abajo_freezer = False
-            elif event.key == pygame.K_a:
-                mover_izquierda_freezer = False
-            elif event.key == pygame.K_d:
-                mover_derecha_freezer = False
 
     pygame.display.flip()
 
