@@ -1,5 +1,5 @@
 import pygame
-import constantes
+#import time
 
 def agregar_despedida(clss):
     def despedirse(self, mensaje):
@@ -30,7 +30,7 @@ class Personaje:
         self.shape = self.image.get_rect()
         self.shape.center = (self.x, self.y)
     
-    def update(self):
+    def update(self, personaje2, animaciones_ataque, animaciones_perdida):
         coodown_animation = 200
         self.image = self.animaciones[self.frame_index]
         if pygame.time.get_ticks() - self.update_time > coodown_animation:
@@ -38,6 +38,19 @@ class Personaje:
             self.frame_index += 1
         if self.frame_index >= len(self.animaciones):
             self.frame_index = 0
+        
+        if personaje2.shape.colliderect(self.shape):
+            #time.sleep(0.5)
+            self.atacar(personaje2, animaciones_ataque)
+            personaje2.mover(-50, 0)
+            if personaje2.resistencia <= 0:
+                print(f"{self.nombre} ha derrotado a {personaje2.nombre}!")
+                personaje2.resistencia = 0
+                personaje2.frame_index = 0
+                personaje2.animaciones = animaciones_perdida
+                self.frame_index = 0
+                
+        
     
     def dibujar(self, screen, forma = "cuadrado"):
         imagen_flip = pygame.transform.flip(self.image, self.flip, False)

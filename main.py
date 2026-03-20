@@ -1,3 +1,4 @@
+#assets: https://itch.io/game-assets/tag-backgrounds
 import os
 import time
 import asyncio
@@ -179,11 +180,18 @@ for personaje in tipo_personajes:
         lista_temp.append(imagen_escalada)
     animaciones.append(lista_temp)
 
-
+background = pygame.image.load("assets/images/bg.png").convert()
 
 goku = Saiyajin("Goku", 9001, 1.75, "Planeta Vegeta", cola=False, x=100, y=300, animaciones=animaciones[0][:len(animaciones[0]) - 7])
 
+animaciones_ataque1 = animaciones[0][8:len(animaciones[0]) - 3]
+animaciones_perdida1 = animaciones[0][len(animaciones[0]) - 3:] 
+
 freezer = Guerrero("Freezer", 9900, 1.80, "Planeta Freezer", x=500, y=300, animaciones=animaciones[1][:len(animaciones[1]) - 7], flip=True)
+
+animaciones_ataque2 = animaciones[1][8:len(animaciones[1]) - 3]
+animaciones_perdida2 = animaciones[1][len(animaciones[1]) - 3:]
+
 #definir las variables de movimiento del jugador
 mover_arriba_p1 = False
 mover_abajo_p1 = False
@@ -200,6 +208,7 @@ running = True
 while running:
     reloj.tick(constantes.FPS)
     screen.fill(constantes.BG_COLOR)
+    screen.blit(background, (0, 0))
 
     delta_x_p1 = 0
     delta_y_p1 = 0
@@ -225,14 +234,21 @@ while running:
     if mover_abajo_p2:
         delta_y_p2 += constantes.VELOCIDAD_PERSONAJE
 
-    goku.mover(delta_x_p1, delta_y_p1)
-    freezer.mover(delta_x_p2, delta_y_p2)
-
-    goku.update()
-    freezer.update()
+    if goku.resistencia > 0:
+        goku.mover(delta_x_p1, delta_y_p1)
+        goku.update(freezer, animaciones_ataque1, animaciones_perdida2)
+        goku.dibujar(screen)
+    else:
+        goku.image = animaciones_perdida1[0]
+        goku.dibujar(screen)
     
-    goku.dibujar(screen)
-    freezer.dibujar(screen)
+    if freezer.resistencia > 0:
+        freezer.mover(delta_x_p2, delta_y_p2)
+        freezer.update(goku, animaciones_ataque2, animaciones_perdida1)
+        freezer.dibujar(screen)
+    else:
+        freezer.image = animaciones_perdida2[0]
+        freezer.dibujar(screen)
     
 
     for event in pygame.event.get():
@@ -250,7 +266,7 @@ while running:
             elif event.key == pygame.K_d:
                 mover_derecha_p1 = True
             if event.key == pygame.K_SPACE:
-                goku.atacar(freezer, animaciones[0][8:len(animaciones[0]) - 3])
+                goku.atacar(freezer, animaciones_ataque1)
 
             # Controles para el jugador 2
             if event.key == pygame.K_RIGHT:
@@ -262,7 +278,7 @@ while running:
             elif event.key == pygame.K_DOWN:
                 mover_abajo_p2 = True
             if event.key == pygame.K_KP_ENTER:
-                freezer.atacar(goku, animaciones[1][8:len(animaciones[1]) - 3])        
+                freezer.atacar(goku, animaciones_ataque2)        
             
             
 
