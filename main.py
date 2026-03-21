@@ -162,6 +162,7 @@ screen = pygame.display.set_mode((constantes.ANCHO_VENTANA, constantes.ALTO_VENT
 pygame.display.set_caption("Torneo de Dragon Ball")
 reloj = pygame.time.Clock()
 
+background = pygame.image.load("assets/images/bg.png").convert()
 
 directorio_personajes = "assets/characters/personajes"
 tipo_personajes = nombres_carpetas(directorio_personajes)
@@ -180,9 +181,11 @@ for personaje in tipo_personajes:
     animaciones.append(lista_temp)
 
 
-goku = Saiyajin("Goku", 990, 1.75, "Planeta Vegeta", cola=False, x=370, y=300, animaciones=animaciones[0][:len(animaciones[0]) - 3])
+goku = Saiyajin("Goku", 900, 1.75, "Planeta Vegeta", cola=False, x=370, y=300, animaciones=animaciones[0][:len(animaciones[0]) - 3])
+animaciones_derrota1 = animaciones[0][-3:]
 
-freezer = Guerrero("Freezer", 900, 1.80, "Planeta Freezer", x=420, y=300, animaciones=animaciones[1][:len(animaciones[1]) - 3], flip=True)
+freezer = Guerrero("Freezer", 990, 1.80, "Planeta Freezer", x=420, y=300, animaciones=animaciones[1][:len(animaciones[1]) - 3], flip=True)
+animaciones_derrota2 = animaciones[1][-3:]
 
 #definir las variables de movimiento del jugador
 
@@ -191,29 +194,35 @@ running = True
 while running:
     reloj.tick(constantes.FPS)
     screen.fill(constantes.BG_COLOR)
+    screen.blit(background, (0, 0))
 
-    px_personaje1 = random.randint(-5, 5)
-    py_personaje1 = random.randint(-5, 5)
-    goku.mover(px_personaje1, py_personaje1)
 
-    px_personaje2 = random.randint(-5, 5)
-    py_personaje2 = random.randint(-5, 5)
-    freezer.mover(px_personaje2, py_personaje2)
+    if goku.resistencia > 0:
+        px_personaje1 = random.randint(-5, 5)
+        py_personaje1 = random.randint(-5, 5)
+        goku.mover(px_personaje1, py_personaje1)
+        goku.atacar(freezer, animaciones_derrota2)
+        goku.update()
+        goku.dibujar(screen)
+    else:
+        goku.image = animaciones_derrota1[0]
+        goku.dibujar(screen)
     
-    
-    freezer.atacar(goku, animaciones[0][-3:])
-    goku.atacar(freezer, animaciones[1][-3:])
-
-    goku.update()
-    freezer.update()
-    
-    goku.dibujar(screen)
-    freezer.dibujar(screen)
+    if freezer.resistencia > 0:
+        px_personaje2 = random.randint(-5, 5)
+        py_personaje2 = random.randint(-5, 5)
+        freezer.mover(px_personaje2, py_personaje2)
+        freezer.atacar(goku, animaciones_derrota1)
+        freezer.update()
+        freezer.dibujar(screen)
+    else:
+        freezer.image = animaciones_derrota2[0]
+        freezer.dibujar(screen)
 
     if goku.resistencia <= 0 or freezer.resistencia <= 0:
         print("¡Fin del combate!")
-        time.sleep(2)
-        running = False
+        #time.sleep(2)
+        #running = False
 
     
     
